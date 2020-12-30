@@ -2,7 +2,7 @@ package com.edgleidson.cursomc;
 
 // CursoMC - Curso de Modelagem Conceitual.
 
-// Aula 14 - REST testado.
+// Aula 15 - Testando a primeira classe de domínio - Categoria.
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
