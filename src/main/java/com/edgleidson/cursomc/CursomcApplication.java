@@ -2,7 +2,7 @@ package com.edgleidson.cursomc;
 
 // CursoMC - Curso de Modelagem Conceitual.
 
-// Aula 16 - Banco de Dados H2 e criação automática de base de dados.
+// Aula 17 - Criando Repository e Service para Categoria.
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
