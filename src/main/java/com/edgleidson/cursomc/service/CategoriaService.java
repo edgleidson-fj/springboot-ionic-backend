@@ -12,10 +12,10 @@ public class CategoriaService {
 
 	// Injeção de dependência.
 	@Autowired
-	private CategoriaRepository repositorio;
+	private CategoriaRepository categoriaRepository;
 
 	public Categoria buscarPorId(Integer id) {
-		Optional<Categoria> obj = repositorio.findById(id);
+		Optional<Categoria> obj = categoriaRepository.findById(id);
 		return obj.orElse(null);
 	}
 }

@@ -17,11 +17,11 @@ import com.edgleidson.cursomc.service.CategoriaService;
 public class CategoriaResource {
 
 	@Autowired
-	private CategoriaService service;
+	private CategoriaService categoriaService;
 	
 	@RequestMapping(value ="/{id}",method = RequestMethod.GET)
 	public ResponseEntity<?> buscarPorId(@PathVariable Integer id) {		
-		Categoria obj = service.buscarPorId(id);		
+		Categoria obj = categoriaService.buscarPorId(id);		
 		return ResponseEntity.ok().body(obj);
 	}
 }
