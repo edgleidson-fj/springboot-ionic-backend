@@ -9,5 +9,4 @@ import com.edgleidson.cursomc.domain.Categoria;
 
 @Repository                                          
 public interface CategoriaRepository  extends JpaRepository<Categoria, Integer>{
-
 }

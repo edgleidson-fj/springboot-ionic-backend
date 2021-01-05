@@ -1,6 +1,5 @@
 package com.edgleidson.cursomc;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,7 +7,7 @@ import org.springframework.boot.CommandLineRunner;
 
 // CursoMC - Curso de Modelagem Conceitual.
 
-// Aula 19 - Produto e associação muitos-para-muitos.
+// Aula 20 - Ajuste no endpoint /categoria{id}.
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
