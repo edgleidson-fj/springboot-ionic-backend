@@ -7,14 +7,18 @@ import org.springframework.boot.CommandLineRunner;
 
 // CursoMC - Curso de Modelagem Conceitual.
 
-// Aula 20 - Ajuste no endpoint /categoria{id}.
+// Aula 21 - Estado e Cidade.
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import com.edgleidson.cursomc.domain.Categoria;
+import com.edgleidson.cursomc.domain.Cidade;
+import com.edgleidson.cursomc.domain.Estado;
 import com.edgleidson.cursomc.domain.Produto;
 import com.edgleidson.cursomc.repository.CategoriaRepository;
+import com.edgleidson.cursomc.repository.CidadeRepository;
+import com.edgleidson.cursomc.repository.EstadoRepository;
 import com.edgleidson.cursomc.repository.ProdutoRepository;
 
 //CommandLineRunner = Executar alguma função automaticamente através do método Run(). 
@@ -25,7 +29,11 @@ public class CursomcApplication implements CommandLineRunner{
 	CategoriaRepository categoriaRepository;
 	@Autowired
 	ProdutoRepository produtoRepository;
-
+	@Autowired
+	EstadoRepository estadoRepository;
+	@Autowired
+	CidadeRepository cidadeRepository;
+	
 	public static void main(String[] args) {
 		SpringApplication.run(CursomcApplication.class, args);
 	}
@@ -39,15 +47,30 @@ public class CursomcApplication implements CommandLineRunner{
 		Produto p2 = new Produto(null, "Impressora", 800.0);
 		Produto p3 = new Produto(null, "Mouse", 80.0);
 		
+		//Categoria - lista de produtos.
 		cat1.getProdutos().addAll(Arrays.asList(p1,p2,p3));
 		cat2.getProdutos().addAll(Arrays.asList(p2));
 		
+		//Produtos - lista de categorias.
 		p1.getCategorias().addAll(Arrays.asList(cat1));
 		p2.getCategorias().addAll(Arrays.asList(cat1,cat2));
 		p3.getCategorias().addAll(Arrays.asList(cat1));
 		
 		categoriaRepository.saveAll(Arrays.asList(cat1,cat2));
 		produtoRepository.saveAll(Arrays.asList(p1,p2,p3));
+		//--------------------------------------------
+		Estado est1 = new Estado(null, "Minas Gerais");
+		Estado est2 = new Estado(null, "São Paulo");
+		
+		Cidade c1 = new Cidade(null, "Uberlândia", est1);
+		Cidade c2 = new Cidade(null, "São Paulo", est2);
+		Cidade c3 = new Cidade(null, "Campinas", est2);
+		
+		//Estados - lista de cidades.
+		est1.getCidades().addAll(Arrays.asList(c1));
+		est2.getCidades().addAll(Arrays.asList(c2,c3));		
+		
+		estadoRepository.saveAll(Arrays.asList(est1,est2));
+		cidadeRepository.saveAll(Arrays.asList(c1,c2,c3));
 	}
-
 }

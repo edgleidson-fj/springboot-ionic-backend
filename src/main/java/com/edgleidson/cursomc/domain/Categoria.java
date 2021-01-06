@@ -21,7 +21,7 @@ public class Categoria implements Serializable{
 	private Integer id;
 	private String nome;
 	
-	// Associação Categoria p/ Produto.
+	// Associação = Muitas CATEGORIAS p/ Muitos PRODUTOS.
 	// @JsonManagedReference = Exibir lista de produtos da Categoria.
 	@JsonManagedReference
 	@ManyToMany(mappedBy = "categorias")
