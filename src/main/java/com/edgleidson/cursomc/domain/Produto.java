@@ -25,7 +25,7 @@ public class Produto implements Serializable{
 	private Double preco;
 	
 	// Associação = Muitos PRODUTOS p/  Muitas CATEGORIAS.
-	// @JsonBackReference = Omitir lista de categorias do Produto.
+	// @JsonBackReference = Omitir lista de categorias do Produto. - Evitando Json ciclíco(Loop infínito).
 	@JsonBackReference
 	@ManyToMany
 	@JoinTable(name = "PRODUTO_CATEGORIA",

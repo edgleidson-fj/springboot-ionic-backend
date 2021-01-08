@@ -7,7 +7,7 @@ import org.springframework.boot.CommandLineRunner;
 
 // CursoMC - Curso de Modelagem Conceitual.
 
-// Aula 22 e 23 - Cliente, TipoCliente, telefone e endereços.
+// Aula 24 - Endpoint /clientes/{id} disponível.
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
