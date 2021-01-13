@@ -27,7 +27,7 @@ public class Cliente implements Serializable{
 	private String nome;
 	private String email;
 	private String cpfOuCnpj;
-	private Integer tipo; //Enumerado (TipoCliente).
+	private Integer tipo; // Enumerado (TipoCliente).
 	
 	// Associação = Um CLIENTE p/ Muitos ENDEREÇO.
 	// @JsonManagedReference = Exibir lista de endereços do Cliente.
@@ -42,6 +42,10 @@ public class Cliente implements Serializable{
 	@ElementCollection
 	@CollectionTable(name = "TELEFONE")
 	private Set<String> telefone = new HashSet<>();
+	
+	// Associação = Um CLIENTE p/ Muitos PEDIDO.
+	@OneToMany(mappedBy = "cliente")
+	private List<Pedido> pedidos = new ArrayList<>();
 	
 	public Cliente() {
 	}
@@ -111,6 +115,14 @@ public class Cliente implements Serializable{
 
 	public void setTelefone(Set<String> telefone) {
 		this.telefone = telefone;
+	}
+	
+	public List<Pedido> getPedidos() {
+		return pedidos;
+	}
+
+	public void setPedidos(List<Pedido> pedidos) {
+		this.pedidos = pedidos;
 	}
 
 	@Override

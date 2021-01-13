@@ -1,5 +1,6 @@
 package com.edgleidson.cursomc;
 
+import java.text.SimpleDateFormat;
 import java.util.Arrays;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,7 +8,7 @@ import org.springframework.boot.CommandLineRunner;
 
 // CursoMC - Curso de Modelagem Conceitual.
 
-// Aula 24 - Endpoint /clientes/{id} disponível.
+// Aulas 25,26,27 - Pedido, EstadoPagamento e Pagamento.
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -17,13 +18,20 @@ import com.edgleidson.cursomc.domain.Cidade;
 import com.edgleidson.cursomc.domain.Cliente;
 import com.edgleidson.cursomc.domain.Endereco;
 import com.edgleidson.cursomc.domain.Estado;
+import com.edgleidson.cursomc.domain.Pagamento;
+import com.edgleidson.cursomc.domain.PagamentoComBoleto;
+import com.edgleidson.cursomc.domain.PagamentoComCartao;
+import com.edgleidson.cursomc.domain.Pedido;
 import com.edgleidson.cursomc.domain.Produto;
+import com.edgleidson.cursomc.domain.enums.EstadoPagamento;
 import com.edgleidson.cursomc.domain.enums.TipoCliente;
 import com.edgleidson.cursomc.repository.CategoriaRepository;
 import com.edgleidson.cursomc.repository.CidadeRepository;
 import com.edgleidson.cursomc.repository.ClienteRepository;
 import com.edgleidson.cursomc.repository.EnderecoRepository;
 import com.edgleidson.cursomc.repository.EstadoRepository;
+import com.edgleidson.cursomc.repository.PagamentoRepository;
+import com.edgleidson.cursomc.repository.PedidoRepository;
 import com.edgleidson.cursomc.repository.ProdutoRepository;
 
 //CommandLineRunner = Executar alguma função automaticamente através do método Run(). 
@@ -31,17 +39,21 @@ import com.edgleidson.cursomc.repository.ProdutoRepository;
 public class CursomcApplication implements CommandLineRunner{
 	
 	@Autowired
-	CategoriaRepository categoriaRepository;
+	private CategoriaRepository categoriaRepository;
 	@Autowired
-	ProdutoRepository produtoRepository;
+	private ProdutoRepository produtoRepository;
 	@Autowired
-	EstadoRepository estadoRepository;
+	private EstadoRepository estadoRepository;
 	@Autowired
-	CidadeRepository cidadeRepository;
+	private CidadeRepository cidadeRepository;
 	@Autowired
-	ClienteRepository clienteRepository;
+	private ClienteRepository clienteRepository;
 	@Autowired
-	EnderecoRepository enderecoRepository;
+	private EnderecoRepository enderecoRepository;
+	@Autowired
+	private PedidoRepository pedidoRepository;
+	@Autowired
+	private PagamentoRepository pagamentoRepository;
 	
 	public static void main(String[] args) {
 		SpringApplication.run(CursomcApplication.class, args);
@@ -95,5 +107,22 @@ public class CursomcApplication implements CommandLineRunner{
 		
 		clienteRepository.saveAll(Arrays.asList(cli1));
 		enderecoRepository.saveAll(Arrays.asList(e1,e2));
+		//-----------------------------------------------------
+		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm"); 
+		Pedido ped1 = new Pedido(null, sdf.parse("30/09/2017 10:32"), cli1, e1);
+		Pedido ped2 = new Pedido(null, sdf.parse("10/10/2017 19:35"), cli1, e2);
+		
+		Pagamento pagto1 = new PagamentoComCartao(null, EstadoPagamento.QUITADO, ped1, 6);
+		Pagamento pagto2 = new PagamentoComBoleto(null, EstadoPagamento.PENDENTE, ped2, sdf.parse("20/10/2017 00:00"),null);
+		
+		//Pedido - um pagamento.
+		ped1.setPagamento(pagto1);
+		ped2.setPagamento(pagto2);
+		
+		//Cliente - lista de pedidos.
+		cli1.getPedidos().addAll(Arrays.asList(ped1,ped2));
+		
+		pedidoRepository.saveAll(Arrays.asList(ped1,ped2));
+		pagamentoRepository.saveAll(Arrays.asList(pagto1,pagto2)); 
 	}
 }
