@@ -31,6 +31,7 @@ public class Cliente implements Serializable{
 	
 	// Associação = Um CLIENTE p/ Muitos ENDEREÇO.
 	// @JsonManagedReference = Exibir lista de endereços do Cliente.
+	// (mappedBy = "cliente-[Endereço]").
 	@JsonManagedReference
 	@OneToMany(mappedBy = "cliente")
 	private List<Endereco> enderecos = new ArrayList<>();
@@ -44,6 +45,7 @@ public class Cliente implements Serializable{
 	private Set<String> telefone = new HashSet<>();
 	
 	// Associação = Um CLIENTE p/ Muitos PEDIDO.
+	// (mappedBy = "cliente-[Pedido]").
 	@OneToMany(mappedBy = "cliente")
 	private List<Pedido> pedidos = new ArrayList<>();
 	

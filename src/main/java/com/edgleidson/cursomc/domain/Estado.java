@@ -23,6 +23,7 @@ public class Estado implements Serializable {
 
 	// Associação = Um ESTADO p/ Muitas CIDADES.
 	// @JsonBackReference = Omitir lista de cidades do Estado. - Evitando Json ciclíco(Loop infínito).
+	// (mappedBy = "estado-[Cidade]").
 	@JsonBackReference
 	@OneToMany(mappedBy = "estado")
 	private List<Cidade> cidades = new ArrayList<>();
