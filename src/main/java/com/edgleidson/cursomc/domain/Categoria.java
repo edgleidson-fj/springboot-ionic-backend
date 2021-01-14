@@ -22,7 +22,7 @@ public class Categoria implements Serializable{
 	private String nome;
 	
 	// Associação = Muitas CATEGORIAS p/ Muitos PRODUTOS.
-	// @JsonManagedReference = Exibir lista de produtos da Categoria.
+	// @JsonManagedReference = Exibir/Serializar lista de produtos da Categoria.
 	// (mappedBy = "categorias-[Produto]").
 	@JsonManagedReference
 	@ManyToMany(mappedBy = "categorias")

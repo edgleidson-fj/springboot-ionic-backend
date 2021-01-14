@@ -11,6 +11,7 @@ import javax.persistence.MapsId;
 import javax.persistence.OneToOne;
 
 import com.edgleidson.cursomc.domain.enums.EstadoPagamento;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 
 // @Inheritance = Herança.
 // InheritanceType.JOINED = Uma tabela para cada SubClasse(PagamentoComBoleto - PagamentoComCartao).
@@ -25,6 +26,8 @@ public class Pagamento implements Serializable{
 	
 	// Associação = Um PAGAMENTO p/ Um PEDIDO.
 	// @MapsId = Para definir o mesmo ID da classe mapeada(Pedido) para classe(Pagamento).
+	// @JsonBackReference = Omitir a serialização do pedido do Pagamento. - Evitando Json ciclíco(Loop infínito).
+	@JsonBackReference
 	@OneToOne
 	@JoinColumn(name = "pedido_id")
 	@MapsId

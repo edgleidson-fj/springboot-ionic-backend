@@ -5,6 +5,8 @@ import java.io.Serializable;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 // Classe de associação = Não tem ID próprio. Quem identifica são os 2 objetos(Produto/Pedido) associado a ela.
 
 @Entity
@@ -13,6 +15,8 @@ public class ItemPedido implements Serializable{
 	
 	// Chave composta / Classe auxiliar.
 	// @EmbeddeId = ID imbutido na Classe auxiliar (ItemPedidoPK).
+	// @JsonIgnore = Nesse caso está ignorando a serialização da Chave Composta.
+	@JsonIgnore
 	@EmbeddedId
 	private ItemPedidoPK id = new ItemPedidoPK();
 	
@@ -33,6 +37,8 @@ public class ItemPedido implements Serializable{
 	}
 	
 	// ItemPedidoPK.
+	// @JsonIgnore = Nesse caso está ignorando a serialização para evitar Json ciclíco(Loop infínito).
+	@JsonIgnore
 	public Pedido getPedido() {
 		return id.getPedido();
 	}

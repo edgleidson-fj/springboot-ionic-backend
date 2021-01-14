@@ -16,6 +16,7 @@ import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 public class Produto implements Serializable{
@@ -28,7 +29,7 @@ public class Produto implements Serializable{
 	private Double preco;
 	
 	// Associação = Muitos PRODUTOS p/  Muitas CATEGORIAS.
-	// @JsonBackReference = Omitir lista de categorias do Produto. - Evitando Json ciclíco(Loop infínito).
+	// @JsonBackReference = Omitir a serialização da lista de categorias do Produto. - Evitando Json ciclíco(Loop infínito).
 	@JsonBackReference
 	@ManyToMany
 	@JoinTable(name = "PRODUTO_CATEGORIA",
@@ -39,9 +40,11 @@ public class Produto implements Serializable{
 	
 	// Associação = Um PEDIDO p/ Muitos ITENS.
 	// Chave composta (Produto/Pedido).
-	// Conjunto de Itens. Obs: Pedido conhece os Itens.
+	// Conjunto de Itens.
 	// Set<> = Para evitar valores repetidos.
 	// (mappedBy = "id-[ItemPedido] _ produto-[ItemPedidoPK]")
+	// @JsonIgnore = Nesse caso está ignorando a serialização dos (ItemPedido) através do Produto.
+	@JsonIgnore
 	@OneToMany(mappedBy = "id.produto")
 	private Set<ItemPedido> itens = new HashSet<>();
 
@@ -57,6 +60,8 @@ public class Produto implements Serializable{
 	}
 	
 	// Lista de Pedidos. Obs: Produtos conhecem seus Pedidos.
+	// @JsonIgnore = Nesse caso está ignorando a serialização para evitar Json ciclíco(Loop infínito).
+	@JsonIgnore
 	public List<Pedido> getPedidos(){
 		List<Pedido> lista = new ArrayList<>();
 		for(ItemPedido x : itens) {

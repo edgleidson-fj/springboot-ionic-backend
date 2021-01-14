@@ -21,7 +21,7 @@ public class Cidade implements Serializable {
 	private String nome;
 	
 	// Associação = Muitas CIDADE p/ Um ESTADO.
-	// @JsonManagedReference = Exibir lista de estado da Cidade.
+	// @JsonManagedReference = Exibir/Serializar o estado da Cidade.
 	@JsonManagedReference
 	@ManyToOne
 	@JoinColumn(name = "estado_id")

@@ -25,7 +25,7 @@ public class Endereco implements Serializable{
 	private String cep;
 	
 	// Associação = Muitos ENDEREÇO p/ Um CLIENTE.
-	// @JsonBackReference = Omitir lista de clientes do Endereço. - Evitando Json ciclíco(Loop infínito).
+	// @JsonBackReference = Omitir a serialização de clientes do Endereço. - Evitando Json ciclíco(Loop infínito).
 	@JsonBackReference
 	@ManyToOne
 	@JoinColumn(name = "cliente_id")

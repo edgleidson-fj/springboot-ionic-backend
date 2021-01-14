@@ -22,7 +22,7 @@ public class Estado implements Serializable {
 	private String nome;
 
 	// Associação = Um ESTADO p/ Muitas CIDADES.
-	// @JsonBackReference = Omitir lista de cidades do Estado. - Evitando Json ciclíco(Loop infínito).
+	// @JsonBackReference = Omitir a serialização das cidades do Estado. - Evitando Json ciclíco(Loop infínito).
 	// (mappedBy = "estado-[Cidade]").
 	@JsonBackReference
 	@OneToMany(mappedBy = "estado")
