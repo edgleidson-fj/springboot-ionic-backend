@@ -8,7 +8,7 @@ import org.springframework.boot.CommandLineRunner;
 
 // CursoMC - Curso de Modelagem Conceitual.
 
-// Aulas: 30 Endpoint /pedidos{id} disponibilizado.
+// Aulas: 31 CORREÇÃO: Utilizando somente JsonIgnore ao invés de (JsonManagedReference - JsonBackRefereced).
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
