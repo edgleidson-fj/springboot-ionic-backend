@@ -8,7 +8,7 @@ import org.springframework.boot.CommandLineRunner;
 
 // CursoMC - Curso de Modelagem Conceitual.
 
-// Aulas: 31 CORREÇÃO: Utilizando somente JsonIgnore ao invés de (JsonManagedReference - JsonBackRefereced).
+// Aulas: 34 Inserindo uma nova Categoria com POST.
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
