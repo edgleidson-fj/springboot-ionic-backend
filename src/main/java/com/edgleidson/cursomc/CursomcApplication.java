@@ -8,7 +8,7 @@ import org.springframework.boot.CommandLineRunner;
 
 // CursoMC - Curso de Modelagem Conceitual.
 
-// Aulas: 34 Inserindo uma nova Categoria com POST.
+// Aula: 35 Atualizando Categoria com PUT, outros pequenos ajustes.
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
