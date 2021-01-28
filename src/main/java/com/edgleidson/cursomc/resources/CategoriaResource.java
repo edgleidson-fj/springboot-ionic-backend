@@ -2,15 +2,16 @@ package com.edgleidson.cursomc.resources;
 
 import java.net.URI;
 import java.util.List;
-import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
@@ -61,6 +62,21 @@ public class CategoriaResource {
 		//Convertendo uma Lista(lista) para outra Lista(listaDTO). 
 		//Convertendo List<> em Stream, depois reconvertendo em List<>.
 		List<CategoriaDTO> listaDTO = lista.stream().map(obj -> new CategoriaDTO(obj)).collect(Collectors.toList());
+		return ResponseEntity.ok().body(listaDTO);
+	}
+	
+	//Paginação.
+	@RequestMapping(value = "/pagina"  ,method = RequestMethod.GET)
+	public ResponseEntity<Page<CategoriaDTO>> buscarPorPagina(
+		@RequestParam(value = "pagina", defaultValue = "0")	Integer pagina, 
+		@RequestParam(value = "linhasPorPagina", defaultValue = "24")	Integer linhasPorPagina, 
+		@RequestParam(value = "ordenarPor", defaultValue = "nome")	String ordenarPor, 
+		@RequestParam(value = "direcao", defaultValue = "ASC")	String direcao) {		//Ascendente ou Descendente.
+		
+		Page<Categoria> lista = categoriaService.paginacao(pagina, linhasPorPagina, ordenarPor, direcao);
+		
+		//Convertendo Page(lista) para outra Page(listaDTO).
+		Page<CategoriaDTO> listaDTO = lista.map(obj -> new CategoriaDTO(obj));
 		return ResponseEntity.ok().body(listaDTO);
 	}
 }
