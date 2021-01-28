@@ -1,6 +1,9 @@
 package com.edgleidson.cursomc.resources;
 
 import java.net.URI;
+import java.util.List;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -12,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.edgleidson.cursomc.domain.Categoria;
+import com.edgleidson.cursomc.dto.CategoriaDTO;
 import com.edgleidson.cursomc.service.CategoriaService;
 
 //Anotação REST.
@@ -48,5 +52,15 @@ public class CategoriaResource {
 	public ResponseEntity<Void> excluir(@PathVariable Integer id) {			
 			categoriaService.excluir(id);			
 		return ResponseEntity.noContent().build();
+	}
+	
+	@RequestMapping(method = RequestMethod.GET)
+	public ResponseEntity<List<CategoriaDTO>> buscarTudo() {		
+		List<Categoria> lista = categoriaService.buscarTudo();
+		
+		//Convertendo uma Lista(lista) para outra Lista(listaDTO). 
+		//Convertendo List<> em Stream, depois reconvertendo em List<>.
+		List<CategoriaDTO> listaDTO = lista.stream().map(obj -> new CategoriaDTO(obj)).collect(Collectors.toList());
+		return ResponseEntity.ok().body(listaDTO);
 	}
 }
