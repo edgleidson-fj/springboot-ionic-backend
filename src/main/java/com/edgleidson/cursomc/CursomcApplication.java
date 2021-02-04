@@ -8,7 +8,7 @@ import org.springframework.boot.CommandLineRunner;
 
 // CursoMC - Curso de Modelagem Conceitual.
 
-// Aula: 39 Validação sintática com Bean Validation.
+// Aula: 40 Personalizando o retorno da validação.
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
