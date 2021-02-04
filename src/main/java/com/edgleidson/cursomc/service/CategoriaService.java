@@ -9,7 +9,9 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
+
 import com.edgleidson.cursomc.domain.Categoria;
+import com.edgleidson.cursomc.dto.CategoriaDTO;
 import com.edgleidson.cursomc.repository.CategoriaRepository;
 import com.edgleidson.cursomc.service.exceptions.IntegridadeException;
 import com.edgleidson.cursomc.service.exceptions.ObjetoNaoEncontradoException;
@@ -54,5 +56,10 @@ public class CategoriaService {
 	public Page<Categoria> paginacao(Integer pagina, Integer linhasPorPagina, String ordenarPor, String direcao){
 		PageRequest pageRequest = PageRequest.of(pagina, linhasPorPagina, Direction.valueOf(direcao), ordenarPor);
 		return categoriaRepository.findAll(pageRequest);
+	}
+	
+	//Método auxiliar para instanciar uma Categoria a partir de um DTO.
+	public Categoria ApartirDeUmDTO(CategoriaDTO objDTO) {
+		return new Categoria(objDTO.getId(), objDTO.getNome());
 	}
 }

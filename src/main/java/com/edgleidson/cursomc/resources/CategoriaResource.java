@@ -4,6 +4,8 @@ import java.net.URI;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
@@ -34,16 +36,18 @@ public class CategoriaResource {
 		return ResponseEntity.ok().body(obj);
 	}
 	
+	//@Valid = Validação. 
 	@RequestMapping(method = RequestMethod.POST)
-	public ResponseEntity<Void> inserir(@RequestBody Categoria obj){
-		obj = categoriaService.inserir(obj);
+	public ResponseEntity<Void> inserir(@Valid @RequestBody CategoriaDTO objDTO){
+		Categoria obj = categoriaService.ApartirDeUmDTO(objDTO);
 		// Pegando URI junto ID do objeto inserido.
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(obj.getId()).toUri();
 		return ResponseEntity.created(uri).build();
 	}
 	
 	@RequestMapping(value = "/{id}",method = RequestMethod.PUT)
-	public ResponseEntity<Void> atualizar(@RequestBody Categoria obj, @PathVariable Integer id){
+	public ResponseEntity<Void> atualizar(@Valid @RequestBody CategoriaDTO objDTO, @PathVariable Integer id){
+		Categoria obj = categoriaService.ApartirDeUmDTO(objDTO);
 		obj.setId(id);
 		obj = categoriaService.atualizar(obj);
 		return ResponseEntity.noContent().build();
