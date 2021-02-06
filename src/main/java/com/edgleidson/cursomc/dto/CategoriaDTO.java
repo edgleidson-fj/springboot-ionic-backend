@@ -21,6 +21,7 @@ public class CategoriaDTO implements Serializable{
 	public CategoriaDTO() {
 		}
 	
+	//Construtor da classe Dominio(Categoria).
 	public CategoriaDTO(Categoria obj) {
 		id = obj.getId();
 		nome = obj.getNome();

@@ -77,8 +77,7 @@ public class CategoriaResource {
 		@RequestParam(value = "ordenarPor", defaultValue = "nome")	String ordenarPor, 
 		@RequestParam(value = "direcao", defaultValue = "ASC")	String direcao) {		//Ascendente ou Descendente.
 		
-		Page<Categoria> lista = categoriaService.paginacao(pagina, linhasPorPagina, ordenarPor, direcao);
-		
+		Page<Categoria> lista = categoriaService.paginacao(pagina, linhasPorPagina, ordenarPor, direcao);		
 		//Convertendo Page(lista) para outra Page(listaDTO).
 		Page<CategoriaDTO> listaDTO = lista.map(obj -> new CategoriaDTO(obj));
 		return ResponseEntity.ok().body(listaDTO);
