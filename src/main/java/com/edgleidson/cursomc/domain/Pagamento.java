@@ -39,7 +39,8 @@ public class Pagamento implements Serializable{
 	public Pagamento(Integer id, EstadoPagamento estado, Pedido pedido) {
 		super();
 		this.id = id;
-		this.estado = estado.getCodigo();
+		this.estado = (estado==null)? null : estado.getCodigo(); //Enumerado (EstadoPagamento).
+		//Obs:Condicional Ternária = Se o estado for igual a nulo, vai atribuir nulo, caso contrário, vai atribuir o código.
 		this.pedido = pedido;
 	}
 

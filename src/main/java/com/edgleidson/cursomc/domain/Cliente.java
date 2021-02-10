@@ -59,7 +59,7 @@ public class Cliente implements Serializable{
 		this.email = email;
 		this.cpfOuCnpj = cpfOuCnpj;
 		this.tipo = (tipo==null)? null : tipo.getCodigo(); //Enumerado (TipoCliente).
-		//Obs:Condicional Ternária = Se o tipo for igual a nulo, vai atribuir nulo, caso contrário, vai atribuir o código
+		//Obs:Condicional Ternária = Se o tipo for igual a nulo, vai atribuir nulo, caso contrário, vai atribuir o código.
 	}
 
 	public Integer getId() {

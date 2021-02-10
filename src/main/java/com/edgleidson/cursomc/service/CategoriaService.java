@@ -35,8 +35,9 @@ public class CategoriaService {
 	}
 
 	public Categoria atualizar(Categoria obj) {
-		buscarPorId(obj.getId());
-		return categoriaRepository.save(obj);
+		Categoria novoObj = buscarPorId(obj.getId());
+		atualizarDados(novoObj, obj);
+		return categoriaRepository.save(novoObj);
 	}
 
 	public void excluir(Integer id) {
@@ -47,19 +48,24 @@ public class CategoriaService {
 			throw new IntegridadeException("Não é possível excluir uma Categoria que possui Produtos!");
 		}
 	}
-	
-	public List<Categoria> buscarTudo(){
+
+	public List<Categoria> buscarTudo() {
 		return categoriaRepository.findAll();
 	}
-	
-	//Paginação.
-	public Page<Categoria> paginacao(Integer pagina, Integer linhasPorPagina, String ordenarPor, String direcao){
+
+	// Paginação.
+	public Page<Categoria> paginacao(Integer pagina, Integer linhasPorPagina, String ordenarPor, String direcao) {
 		PageRequest pageRequest = PageRequest.of(pagina, linhasPorPagina, Direction.valueOf(direcao), ordenarPor);
 		return categoriaRepository.findAll(pageRequest);
 	}
-	
-	//Método auxiliar para instanciar uma Categoria a partir de um DTO.
+
+	// Método auxiliar para instanciar uma Categoria a partir de um DTO.
 	public Categoria ApartirDeUmDTO(CategoriaDTO objDTO) {
 		return new Categoria(objDTO.getId(), objDTO.getNome());
+	}
+
+	// Método auxiliar para atualização.
+	private void atualizarDados(Categoria novoObj, Categoria obj) {
+		novoObj.setNome(obj.getNome());
 	}
 }
