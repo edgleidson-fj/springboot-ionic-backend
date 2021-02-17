@@ -40,6 +40,7 @@ public class CategoriaResource {
 	@RequestMapping(method = RequestMethod.POST)
 	public ResponseEntity<Void> inserir(@Valid @RequestBody CategoriaDTO objDTO){
 		Categoria obj = categoriaService.ApartirDeUmDTO(objDTO);
+		obj = categoriaService.inserir(obj);
 		// Pegando URI junto ID do objeto inserido.
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(obj.getId()).toUri();
 		return ResponseEntity.created(uri).build();

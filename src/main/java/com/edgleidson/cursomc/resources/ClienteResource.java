@@ -19,6 +19,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.edgleidson.cursomc.domain.Cliente;
 import com.edgleidson.cursomc.dto.ClienteDTO;
+import com.edgleidson.cursomc.dto.ClienteNovoDTO;
 import com.edgleidson.cursomc.service.ClienteService;
 
 @RestController
@@ -34,13 +35,14 @@ public class ClienteResource {
 		return ResponseEntity.ok().body(obj);
 	}
 	
-	//@Valid = Validação. 
+		//@Valid = Validação. 
 		@RequestMapping(method = RequestMethod.POST)
-		public ResponseEntity<Void> inserir(@Valid @RequestBody ClienteDTO objDTO){
+		public ResponseEntity<Void> inserir(@Valid @RequestBody ClienteNovoDTO objDTO){
 			Cliente obj = clienteService.ApartirDeUmDTO(objDTO);
+			obj = clienteService.inserir(obj);
 			// Pegando URI junto ID do objeto inserido.
 			URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(obj.getId()).toUri();
-			return ResponseEntity.created(uri).build();
+			return ResponseEntity.created(uri).build();			
 		}
 		
 		@RequestMapping(value = "/{id}",method = RequestMethod.PUT)

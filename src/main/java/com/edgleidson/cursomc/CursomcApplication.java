@@ -8,7 +8,7 @@ import org.springframework.boot.CommandLineRunner;
 
 // CursoMC - Curso de Modelagem Conceitual.
 
-// Aula: 42 Correções: update em CategoriaService e construtor de Pagamento.
+// Aula: 43 Inserindo um novo Cliente com POST.
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
