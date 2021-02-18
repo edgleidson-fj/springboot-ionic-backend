@@ -6,6 +6,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.CollectionTable;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
@@ -31,7 +32,9 @@ public class Cliente implements Serializable{
 	
 	// Associação = Um CLIENTE p/ Muitos ENDEREÇO.
 	// (mappedBy = "cliente-[Endereço]").
-	@OneToMany(mappedBy = "cliente")
+	// (cascade = "Possibilita que toda operação que modifica o Cliente seja refletida em cascata nos Endereços")
+	// -exemplo do Cascade - Se excluir o Cliente também excluirá o Endereço dele.
+	@OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL)
 	private List<Endereco> enderecos = new ArrayList<>();
 	
 	// Entidade fraca.

@@ -8,7 +8,7 @@ import org.springframework.boot.CommandLineRunner;
 
 // CursoMC - Curso de Modelagem Conceitual.
 
-// Aula: 43 Inserindo um novo Cliente com POST.
+// Aula: 44 Ajustando e testando a deleção de Cliente.
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
