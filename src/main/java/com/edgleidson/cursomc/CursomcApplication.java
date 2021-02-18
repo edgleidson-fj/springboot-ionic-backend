@@ -8,7 +8,7 @@ import org.springframework.boot.CommandLineRunner;
 
 // CursoMC - Curso de Modelagem Conceitual.
 
-// Aula: 44 Ajustando e testando a deleção de Cliente.
+// Aula: 45 Validação costumizada: CPF ou CNPJ na inserção do Cliente.
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
