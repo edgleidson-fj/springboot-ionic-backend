@@ -8,7 +8,10 @@ import javax.validation.constraints.NotEmpty;
 import org.hibernate.validator.constraints.Length;
 
 import com.edgleidson.cursomc.domain.Cliente;
+import com.edgleidson.cursomc.service.validacao.ClienteUpdate;
 
+//@ClienteUpdate - Anotação custimizada que foi criada para validar Email, na atualização do Cliente.
+@ClienteUpdate
 public class ClienteDTO implements Serializable{
 	private static final long serialVersionUID = 1L;
 

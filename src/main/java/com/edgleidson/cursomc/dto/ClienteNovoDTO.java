@@ -9,7 +9,7 @@ import org.hibernate.validator.constraints.Length;
 
 import com.edgleidson.cursomc.service.validacao.ClienteInsert;
 
-// @ClienteInsert - Anotação custimizada que foi criada para validar CPF e CNPJ. 
+// @ClienteInsert - Anotação custimizada que foi criada para validar CPF, CNPJ e Email. 
 @ClienteInsert
 public class ClienteNovoDTO implements Serializable{
 	private static final long serialVersionUID = 1L;
