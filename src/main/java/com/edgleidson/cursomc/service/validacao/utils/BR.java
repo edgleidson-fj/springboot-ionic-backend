@@ -1,6 +1,9 @@
 package com.edgleidson.cursomc.service.validacao.utils;
 
 //Fonte:  https://gist.github.com/adrianoluis/5043397d378ae506d87366abb0ab4e30
+
+//Classe foi criada para validar CPF e CNPJ.
+//BR = Brasil(CPF e CNPJ).
 public class BR {
 
 	// CPF

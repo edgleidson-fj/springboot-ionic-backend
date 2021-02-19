@@ -8,6 +8,9 @@ import java.lang.annotation.Target;
 import javax.validation.Constraint;
 import javax.validation.Payload;
 
+// -> Interface criada junto com a Classe(ClienteInsertValidação) para customizar 
+//		 validação de CPf, CNPJ e Email.
+
 @Constraint(validatedBy = ClienteInsertValidacao.class)
 @Target({ ElementType.TYPE })
 @Retention(RetentionPolicy.RUNTIME)
