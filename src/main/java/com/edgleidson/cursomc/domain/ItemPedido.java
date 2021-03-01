@@ -36,6 +36,10 @@ public class ItemPedido implements Serializable{
 		this.preco = preco;
 	}
 	
+	public double getSubtotal() {
+		return (preco - desconto) * quantidade;
+	}	
+	
 	// ItemPedidoPK.
 	// @JsonIgnore = Nesse caso está ignorando a serialização para evitar Json ciclíco(Loop infínito).
 	@JsonIgnore
