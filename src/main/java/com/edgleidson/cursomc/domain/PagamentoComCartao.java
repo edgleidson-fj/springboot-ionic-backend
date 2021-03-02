@@ -3,10 +3,12 @@ package com.edgleidson.cursomc.domain;
 import javax.persistence.Entity;
 
 import com.edgleidson.cursomc.domain.enums.EstadoPagamento;
+import com.fasterxml.jackson.annotation.JsonTypeName;
 
 // SubClasse da Classe(Pagamento).
 
 @Entity
+@JsonTypeName("pagamentoComCartao") 
 public class PagamentoComCartao extends Pagamento{
 	private static final long serialVersionUID = 1L;
 	
