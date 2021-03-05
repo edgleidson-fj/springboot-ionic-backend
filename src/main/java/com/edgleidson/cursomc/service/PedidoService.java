@@ -5,6 +5,7 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.edgleidson.cursomc.domain.ItemPedido;
 import com.edgleidson.cursomc.domain.PagamentoComBoleto;
@@ -35,7 +36,7 @@ public class PedidoService {
 				"Objeto não encontrado! Id: " + id + ", Tipo: " + Pedido.class.getName()));
 	}
 	
-	//@Transactional
+	@Transactional
 	public Pedido inserir(Pedido obj) {
 		obj.setId(null);
 		obj.setInstante(new Date());

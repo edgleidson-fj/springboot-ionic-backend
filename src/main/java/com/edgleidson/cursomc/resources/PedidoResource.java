@@ -22,18 +22,18 @@ public class PedidoResource {
 
 	@Autowired
 	private PedidoService pedidoService;
-	
-	@RequestMapping(value ="/{id}",method = RequestMethod.GET)
-	public ResponseEntity<Pedido> buscarPorId(@PathVariable Integer id) {		
-		Pedido obj = pedidoService.buscarPorId(id);		
+
+	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
+	public ResponseEntity<Pedido> buscarPorId(@PathVariable Integer id) {
+		Pedido obj = pedidoService.buscarPorId(id);
 		return ResponseEntity.ok().body(obj);
 	}
-	
-		@RequestMapping(method = RequestMethod.POST)
-		public ResponseEntity<Void> inserir(@Valid @RequestBody Pedido obj){
-			obj = pedidoService.inserir(obj);
-			// Pegando URI junto ID do objeto inserido.
-			URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(obj.getId()).toUri();
-			return ResponseEntity.created(uri).build();
-		}
+
+	@RequestMapping(method = RequestMethod.POST)
+	public ResponseEntity<Void> inserir(@Valid @RequestBody Pedido obj) {
+		obj = pedidoService.inserir(obj);
+		// Pegando URI junto ID do objeto inserido.
+		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(obj.getId()).toUri();
+		return ResponseEntity.created(uri).build();
+	}
 }

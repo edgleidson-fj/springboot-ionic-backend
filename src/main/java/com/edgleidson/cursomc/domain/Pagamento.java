@@ -18,7 +18,7 @@ import com.fasterxml.jackson.annotation.JsonTypeInfo;
 
 // @Inheritance = Herança.
 // InheritanceType.JOINED = Uma tabela para cada SubClasse(PagamentoComBoleto - PagamentoComCartao).
-// @JsonTypeInfo = Para propocionar que a Classe(Pagamento) tenha mais um campo adicionado chamado(@type).
+// @JsonTypeInfo = Para propocionar que a Classe(Pagamento) tenha mais um campo adicionado, chamado(@type).
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
 @JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.PROPERTY, property = "@type")
