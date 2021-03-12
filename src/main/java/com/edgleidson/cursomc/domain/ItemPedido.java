@@ -1,6 +1,8 @@
 package com.edgleidson.cursomc.domain;
 
 import java.io.Serializable;
+import java.text.NumberFormat;
+import java.util.Locale;
 
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
@@ -115,5 +117,23 @@ public class ItemPedido implements Serializable{
 		} else if (!id.equals(other.id))
 			return false;
 		return true;
-	}	
+	}
+
+	// toString.
+	@Override
+	public String toString() {
+		// Formatar em Dinheiro - Real(Brasileiro).
+		NumberFormat nf = NumberFormat.getCurrencyInstance(new Locale("pt","BR"));
+		
+		StringBuilder builder = new StringBuilder();
+		builder.append(getProduto().getNome());
+		builder.append(", Qtde: ");
+		builder.append(quantidade);
+		builder.append(", Preço: ");
+		builder.append(nf.format(preco));
+		builder.append(", SubTotal: ");
+		builder.append(nf.format(getSubtotal()));
+		builder.append("\n");
+		return builder.toString();
+	}		
 }

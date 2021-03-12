@@ -21,7 +21,7 @@ public class DesenvConfig {
 	private BDService bdService;
 	
 	// Pegando valor da chave dentro do arquivo(application-dev.properties).
-	// Valores: create, create-drop, validate, e update.
+	// Valores: none, create, create-drop, validate, e update.
 	@Value("${spring.jpa.hibernate.ddl-auto}")
 	private String estrategia;
 	
