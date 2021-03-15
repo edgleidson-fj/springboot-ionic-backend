@@ -8,6 +8,8 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
 
 import com.edgleidson.cursomc.service.BDService;
+import com.edgleidson.cursomc.service.EmailService;
+import com.edgleidson.cursomc.service.MockEmailService;
 
 //Obs: Essa classe será utilizada específicamente quando o perfil de teste(test) ->
 //  -> estiver ativo no "application.properties".
@@ -19,9 +21,15 @@ public class TesteConfig {
 	@Autowired
 	private BDService bdService;
 
+	//@Bean = Para diponibilizar que o método vire um componente dentro do sistema/código fonte.
 	@Bean
 	public boolean instanciarBancoDeDados() throws ParseException {
 		bdService.instaciarBancoDeDadosTeste();
 		return true;
+	}
+	
+	@Bean
+	public EmailService emailService() {
+		return new MockEmailService();
 	}
 }
