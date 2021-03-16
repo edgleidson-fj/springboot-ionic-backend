@@ -4,7 +4,7 @@ import org.springframework.boot.CommandLineRunner;
 
 // CursoMC - Curso de Modelagem Conceitual.
 
-// Aula: 63 MockEmailService com Logger - Padrões Strategy e Template Method.
+// Aula: 64 Implementando SmtpEmailService com servidor do Google.
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
