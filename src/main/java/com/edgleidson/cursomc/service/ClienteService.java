@@ -8,6 +8,7 @@ import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort.Direction;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -29,6 +30,8 @@ public class ClienteService {
 	private ClienteRepository clienteRepository;
 	@Autowired
 	private EnderecoRepository enderecoRepository;
+	@Autowired
+	private BCryptPasswordEncoder criptografia;
 
 	public Cliente buscarPorId(Integer id) {
 		Optional<Cliente> obj = clienteRepository.findById(id);
@@ -69,14 +72,14 @@ public class ClienteService {
 		return clienteRepository.findAll(pageRequest);
 	}
 	
-	//Método auxiliar para instanciar uma Cliente a partir de um DTO.
+	//Método auxiliar para instanciar um Cliente a partir de um DTO.
 	public Cliente ApartirDeUmDTO(ClienteDTO objDTO) {
-		return new Cliente(objDTO.getId(), objDTO.getNome(), objDTO.getEmail(), null, null);
+		return new Cliente(objDTO.getId(), objDTO.getNome(), objDTO.getEmail(), null, null, null);
 		//Obs: CPF e Tipo nulo, porque o DTO não tem esses dados.
 	}
 	//Sobrecarga(ApartirDeUmDTO).
 	public Cliente ApartirDeUmDTO(ClienteNovoDTO objDTO) {
-		Cliente cli = new Cliente(null, objDTO.getNome(), objDTO.getEmail(), objDTO.getCpfOuCnpj(), TipoCliente.toEnum(objDTO.getTipo()));
+		Cliente cli = new Cliente(null, objDTO.getNome(), objDTO.getEmail(), objDTO.getCpfOuCnpj(), TipoCliente.toEnum(objDTO.getTipo()), criptografia.encode(objDTO.getSenha()));
 		Cidade cid = new Cidade(objDTO.getCidadeId(), null, null);
 		Endereco end = new Endereco(null, objDTO.getLogradouro(), objDTO.getNumero(), objDTO.getComplemento(), objDTO.getBairro(), objDTO.getCep(), cli, cid);
 		cli.getEnderecos().add(end);

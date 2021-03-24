@@ -30,6 +30,9 @@ public class Cliente implements Serializable{
 	private String cpfOuCnpj;
 	private Integer tipo; // Enumerado (TipoCliente).
 	
+	@JsonIgnore
+	private String senha;
+	
 	// Associação = Um CLIENTE p/ Muitos ENDEREÇO.
 	// (mappedBy = "cliente-[Endereço]").
 	// (cascade = "Possibilita que toda operação que modifica o Cliente seja refletida em cascata nos Endereços")
@@ -55,7 +58,7 @@ public class Cliente implements Serializable{
 	public Cliente() {
 	}
 
-	public Cliente(Integer id, String nome, String email, String cpfOuCnpj, TipoCliente tipo) {
+	public Cliente(Integer id, String nome, String email, String cpfOuCnpj, TipoCliente tipo, String senha) {
 		super();
 		this.id = id;
 		this.nome = nome;
@@ -63,6 +66,7 @@ public class Cliente implements Serializable{
 		this.cpfOuCnpj = cpfOuCnpj;
 		this.tipo = (tipo==null)? null : tipo.getCodigo(); //Enumerado (TipoCliente).
 		//Obs:Condicional Ternária = Se o tipo for igual a nulo, vai atribuir nulo, caso contrário, vai atribuir o código.
+		this.senha = senha;
 	}
 
 	public Integer getId() {
@@ -106,6 +110,14 @@ public class Cliente implements Serializable{
 		this.tipo = tipo.getCodigo();
 	}
 	//------------------------------------------
+	
+	public String getSenha() {
+		return senha;
+	}
+
+	public void setSenha(String senha) {
+		this.senha = senha;
+	}
 
 	public List<Endereco> getEnderecos() {
 		return enderecos;
