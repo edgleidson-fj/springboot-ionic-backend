@@ -5,16 +5,19 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import javax.persistence.CascadeType;
 import javax.persistence.CollectionTable;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
+import com.edgleidson.cursomc.domain.enums.Perfil;
 import com.edgleidson.cursomc.domain.enums.TipoCliente;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -48,6 +51,12 @@ public class Cliente implements Serializable{
 	@CollectionTable(name = "TELEFONE")
 	private Set<String> telefone = new HashSet<>();
 	
+	//Enumerado (Perfil).
+	//(EAGER) = Para buscar Perfis automaticamente, sempre que o Cliente for consultado.
+	@ElementCollection(fetch=FetchType.EAGER)
+	@CollectionTable(name="PERFIS")
+	private Set<Integer> perfis = new HashSet<>();
+	
 	// Associação = Um CLIENTE p/ Muitos PEDIDO.
 	// (mappedBy = "cliente-[Pedido]").
 	// @JsonIgnore = Omitir a serialização do pedido do Pagamento. - Evitando Json ciclíco(Loop infínito).
@@ -55,7 +64,9 @@ public class Cliente implements Serializable{
 	@OneToMany(mappedBy = "cliente")
 	private List<Pedido> pedidos = new ArrayList<>();
 	
+	
 	public Cliente() {
+		addPerfil(Perfil.CLIENTE);//Todo Cliente terá por padrão o Perfil(CLIENTE).
 	}
 
 	public Cliente(Integer id, String nome, String email, String cpfOuCnpj, TipoCliente tipo, String senha) {
@@ -67,6 +78,7 @@ public class Cliente implements Serializable{
 		this.tipo = (tipo==null)? null : tipo.getCodigo(); //Enumerado (TipoCliente).
 		//Obs:Condicional Ternária = Se o tipo for igual a nulo, vai atribuir nulo, caso contrário, vai atribuir o código.
 		this.senha = senha;
+		addPerfil(Perfil.CLIENTE);
 	}
 
 	public Integer getId() {
@@ -119,6 +131,16 @@ public class Cliente implements Serializable{
 		this.senha = senha;
 	}
 
+	//Enumerado (Perfil).
+	public Set<Perfil> getPerfis(){
+		return perfis.stream().map(x -> Perfil.toEnum(x)).collect(Collectors.toSet());
+	}
+	
+	public void addPerfil(Perfil perfil) {
+		perfis.add(perfil.getCodigo());
+	}
+	//-------------------------------------------
+	
 	public List<Endereco> getEnderecos() {
 		return enderecos;
 	}
