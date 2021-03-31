@@ -4,7 +4,7 @@ import org.springframework.boot.CommandLineRunner;
 
 // CursoMC - Curso de Modelagem Conceitual.
 
-// Aula: 70 Salvando perfis de usuário na base de dados.
+// Aulas: 71 e 72 Implementando autenticação e geração de token JWT.
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
