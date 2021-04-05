@@ -58,6 +58,7 @@ public class JWTFiltroDeAutenticacao extends UsernamePasswordAuthenticationFilte
 	}
 
 	// AUTENTICAÇÃO BEM SUCEDIDA.
+	//FilterChain = Cadeias de Filtros.
 	@Override
 	protected void successfulAuthentication(HttpServletRequest request, HttpServletResponse response, FilterChain chain,
 			Authentication autenticacao) throws IOException, ServletException {
