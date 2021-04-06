@@ -9,6 +9,7 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -53,12 +54,16 @@ public class ClienteResource {
 			return ResponseEntity.noContent().build();
 		}
 		
+		//Apenas o perfil(ADMIN) pode excluir Clientes.
+		@PreAuthorize("hasAnyRole('ADMIN')")
 		@RequestMapping(value ="/{id}",method = RequestMethod.DELETE)
 		public ResponseEntity<Void> excluir(@PathVariable Integer id) {			
 				clienteService.excluir(id);			
 			return ResponseEntity.noContent().build();
 		}
 		
+		//Apenas o perfil(ADMIN) pode listar todos os Clientes.
+		@PreAuthorize("hasAnyRole('ADMIN')")
 		@RequestMapping(method = RequestMethod.GET)
 		public ResponseEntity<List<ClienteDTO>> buscarTudo() {		
 			List<Cliente> lista = clienteService.buscarTudo();
@@ -70,6 +75,8 @@ public class ClienteResource {
 		}
 		
 		//Paginação.
+		//Apenas o perfil(ADMIN) pode listar todos os Clientes paginados.
+		@PreAuthorize("hasAnyRole('ADMIN')")
 		@RequestMapping(value = "/pagina"  ,method = RequestMethod.GET)
 		public ResponseEntity<Page<ClienteDTO>> buscarPorPagina(
 			@RequestParam(value = "pagina", defaultValue = "0")	Integer pagina, 

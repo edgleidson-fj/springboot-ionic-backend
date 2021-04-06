@@ -8,6 +8,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.core.env.Environment;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
@@ -27,6 +28,7 @@ import com.edgleidson.cursomc.security.JWTutil;
 
 @Configuration
 @EnableWebSecurity
+@EnableGlobalMethodSecurity(prePostEnabled = true)
 public class SegurancaConfig extends WebSecurityConfigurerAdapter {
 
 	@Autowired
@@ -41,13 +43,16 @@ public class SegurancaConfig extends WebSecurityConfigurerAdapter {
 			"/h2-console/**" 
 			};
 
-	// Vetor[] para definir quais os caminhos/URL, que estaram liberados apenas para leitura/visualização.
+	// Vetor[] para definir quais os caminhos/URL, que estaram liberados apenas para leitura/visualização (GET).
 	private static final String[] PUBLIC_MATCHERS_GET = { 
 			"/produtos/**", 
-			"/categorias/**",
-			"/clientes/**"
+			"/categorias/**"
 			};
 
+	// Vetor[] para definir quais os caminhos/URL, que estaram liberados para gravação (POST).
+	private static final String[] PUBLIC_MATCHERS_POST = { 
+			"/clientes/**"
+			};
 	
 	// Sobreescrever o método(configure()) que veio da classe(WebSecurityConfigurerAdapter). 
 	@Override
@@ -61,6 +66,7 @@ public class SegurancaConfig extends WebSecurityConfigurerAdapter {
 		http.cors().and().csrf().disable();
 
 		http.authorizeRequests()
+		.antMatchers(HttpMethod.POST,PUBLIC_MATCHERS_POST).permitAll()//Permitir o método(POST) para os caminhos que estiverem no vetor.
 		.antMatchers(HttpMethod.GET,PUBLIC_MATCHERS_GET).permitAll()//Só vai permitir o método(GET) para os caminhos que estiverem no vetor.
 		.antMatchers(PUBLIC_MATCHERS).permitAll() //Todos os caminho que tiver nesse Vetor, será permitido.
 		.anyRequest().authenticated(); //Para o restante exigir uma autenticação.
