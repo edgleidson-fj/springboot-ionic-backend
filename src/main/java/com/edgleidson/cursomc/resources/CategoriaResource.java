@@ -49,6 +49,7 @@ public class CategoriaResource {
 		return ResponseEntity.created(uri).build();
 	}
 	
+	//Apenas o perfil(ADMIN) pode editar Categorias.
 	@PreAuthorize("hasAnyRole('ADMIN')")
 	@RequestMapping(value = "/{id}",method = RequestMethod.PUT)
 	public ResponseEntity<Void> atualizar(@Valid @RequestBody CategoriaDTO objDTO, @PathVariable Integer id){
@@ -58,6 +59,7 @@ public class CategoriaResource {
 		return ResponseEntity.noContent().build();
 	}
 	
+	//Apenas o perfil(ADMIN) pode excluir Categorias.
 	@PreAuthorize("hasAnyRole('ADMIN')")
 	@RequestMapping(value ="/{id}",method = RequestMethod.DELETE)
 	public ResponseEntity<Void> excluir(@PathVariable Integer id) {			

@@ -15,11 +15,14 @@ import org.springframework.transaction.annotation.Transactional;
 import com.edgleidson.cursomc.domain.Cidade;
 import com.edgleidson.cursomc.domain.Cliente;
 import com.edgleidson.cursomc.domain.Endereco;
+import com.edgleidson.cursomc.domain.enums.Perfil;
 import com.edgleidson.cursomc.domain.enums.TipoCliente;
 import com.edgleidson.cursomc.dto.ClienteDTO;
 import com.edgleidson.cursomc.dto.ClienteNovoDTO;
 import com.edgleidson.cursomc.repository.ClienteRepository;
 import com.edgleidson.cursomc.repository.EnderecoRepository;
+import com.edgleidson.cursomc.security.UsuarioSpringSecurity;
+import com.edgleidson.cursomc.service.exceptions.AutorizacaoException;
 import com.edgleidson.cursomc.service.exceptions.IntegridadeException;
 import com.edgleidson.cursomc.service.exceptions.ObjetoNaoEncontradoException;
 
@@ -32,12 +35,21 @@ public class ClienteService {
 	private EnderecoRepository enderecoRepository;
 	@Autowired
 	private BCryptPasswordEncoder criptografia;
+	
 
-	public Cliente buscarPorId(Integer id) {
+	public Cliente buscarPorId(Integer id) {		
+		UsuarioSpringSecurity usuarioLogado = UsuarioService.usuarioAutenticado();
+		
+		//usuarioLogado igual nulo OU usuarioLogado diferente de (ADMIN) & usuarioLogado diferente do ID do Usuario.
+		if(usuarioLogado == null || !usuarioLogado.temFuncao(Perfil.ADMIN) && !id.equals(usuarioLogado.getId())) {
+			throw new AutorizacaoException("Acesso negado!");
+		}
+		
 		Optional<Cliente> obj = clienteRepository.findById(id);
 		return obj.orElseThrow(() -> new ObjetoNaoEncontradoException(
 				"Objeto não encontrado! Id: " + id + ", Tipo: " + Cliente.class.getName()));
 	}
+	
 	
 	@Transactional
 	public Cliente inserir(Cliente obj) {
@@ -47,12 +59,14 @@ public class ClienteService {
 		return obj;		
 	}
 	
+	
 	public Cliente atualizar(Cliente obj) {
 		Cliente novoObj = buscarPorId(obj.getId());
 		atualizarDados(novoObj,obj);
 		return clienteRepository.save(novoObj);
 	}
 
+	
 	public void excluir(Integer id) {
 		buscarPorId(id);
 		try {
@@ -62,9 +76,11 @@ public class ClienteService {
 		}
 	}
 	
+	
 	public List<Cliente> buscarTudo(){
 		return clienteRepository.findAll();
 	}
+	
 	
 	//Paginação.
 	public Page<Cliente> paginacao(Integer pagina, Integer linhasPorPagina, String ordenarPor, String direcao){
@@ -72,11 +88,14 @@ public class ClienteService {
 		return clienteRepository.findAll(pageRequest);
 	}
 	
+	
 	//Método auxiliar para instanciar um Cliente a partir de um DTO.
 	public Cliente ApartirDeUmDTO(ClienteDTO objDTO) {
 		return new Cliente(objDTO.getId(), objDTO.getNome(), objDTO.getEmail(), null, null, null);
 		//Obs: CPF e Tipo nulo, porque o DTO não tem esses dados.
 	}
+	
+	
 	//Sobrecarga(ApartirDeUmDTO).
 	public Cliente ApartirDeUmDTO(ClienteNovoDTO objDTO) {
 		Cliente cli = new Cliente(null, objDTO.getNome(), objDTO.getEmail(), objDTO.getCpfOuCnpj(), TipoCliente.toEnum(objDTO.getTipo()), criptografia.encode(objDTO.getSenha()));
@@ -94,9 +113,11 @@ public class ClienteService {
 		return cli;
 	}
 	
+	
 	//Método auxiliar para atualização.
 	private void atualizarDados(Cliente novoObj, Cliente obj) {
 		novoObj.setNome(obj.getNome());
 		novoObj.setEmail(obj.getEmail());
 	}
+	
 }

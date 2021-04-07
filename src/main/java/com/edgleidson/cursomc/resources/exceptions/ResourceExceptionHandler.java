@@ -9,6 +9,7 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
+import com.edgleidson.cursomc.service.exceptions.AutorizacaoException;
 import com.edgleidson.cursomc.service.exceptions.IntegridadeException;
 import com.edgleidson.cursomc.service.exceptions.ObjetoNaoEncontradoException;
 
@@ -24,12 +25,14 @@ public class ResourceExceptionHandler {
 		return ResponseEntity.status(HttpStatus.NOT_FOUND).body(erroPadrao);
 	}
 	
+	
 	@ExceptionHandler(IntegridadeException.class)
 	public ResponseEntity<ErroPadrao> Integridade(IntegridadeException ex, HttpServletRequest request){
 		
 		ErroPadrao erroPadrao = new ErroPadrao(HttpStatus.BAD_REQUEST.value(), ex.getMessage(), System.currentTimeMillis());
 		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(erroPadrao);
 	}	
+	
 	
 	//MethodArgumentNotValidException - Excerção para Validação.
 	@ExceptionHandler(MethodArgumentNotValidException.class)
@@ -41,5 +44,14 @@ public class ResourceExceptionHandler {
 			erroDeValidacao.addErro(x.getField(), x.getDefaultMessage());
 		}		
 		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(erroDeValidacao);
-	}	
+	}
+	
+	
+	@ExceptionHandler(AutorizacaoException.class)
+	public ResponseEntity<ErroPadrao> Autorizacao(AutorizacaoException ex, HttpServletRequest request){
+		
+		ErroPadrao erroPadrao = new ErroPadrao(HttpStatus.FORBIDDEN.value(), ex.getMessage(), System.currentTimeMillis());
+		return ResponseEntity.status(HttpStatus.FORBIDDEN).body(erroPadrao);
+	}
+	
 }

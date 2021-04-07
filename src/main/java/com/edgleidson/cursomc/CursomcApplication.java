@@ -4,7 +4,7 @@ import org.springframework.boot.CommandLineRunner;
 
 // CursoMC - Curso de Modelagem Conceitual.
 
-// Aula: 74 Autorizando endpoints para perfis específicos.
+// Aula: 75 Restirção de conteúdo: Cliente só recupera ele mesmo.
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

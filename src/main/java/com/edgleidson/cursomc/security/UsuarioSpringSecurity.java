@@ -76,4 +76,11 @@ public class UsuarioSpringSecurity implements UserDetails{
 		//O USUÁRIO ESTÁ ATIVO.
 		return true;
 	}
+	
+	
+	// hasRole => No código do professor Nelio Alves.
+	public boolean temFuncao(Perfil perfil) {		
+		return getAuthorities().contains(new SimpleGrantedAuthority(perfil.getDescricao()));
+		//Retornar a descrição do Perfil.
+	}
 }
