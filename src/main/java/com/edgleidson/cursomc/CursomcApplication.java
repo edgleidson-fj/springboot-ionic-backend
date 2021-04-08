@@ -4,7 +4,7 @@ import org.springframework.boot.CommandLineRunner;
 
 // CursoMC - Curso de Modelagem Conceitual.
 
-// Aula: 75 Restirção de conteúdo: Cliente só recupera ele mesmo.
+// Aula: 76 Restrição de conteúdo: Cliente só recupera seu Pedido.
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

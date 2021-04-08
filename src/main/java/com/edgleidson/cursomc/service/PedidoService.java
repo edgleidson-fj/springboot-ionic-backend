@@ -4,9 +4,13 @@ import java.util.Date;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.edgleidson.cursomc.domain.Cliente;
 import com.edgleidson.cursomc.domain.ItemPedido;
 import com.edgleidson.cursomc.domain.PagamentoComBoleto;
 import com.edgleidson.cursomc.domain.Pedido;
@@ -14,6 +18,8 @@ import com.edgleidson.cursomc.domain.enums.EstadoPagamento;
 import com.edgleidson.cursomc.repository.ItemPedidoRepository;
 import com.edgleidson.cursomc.repository.PagamentoRepository;
 import com.edgleidson.cursomc.repository.PedidoRepository;
+import com.edgleidson.cursomc.security.UsuarioSpringSecurity;
+import com.edgleidson.cursomc.service.exceptions.AutorizacaoException;
 import com.edgleidson.cursomc.service.exceptions.ObjetoNaoEncontradoException;
 
 @Service
@@ -67,4 +73,19 @@ public class PedidoService {
 		emailService.envioDeConfirmacaoHtmlEmail(obj); //Email na Versão em Html.
 		return obj;
 	}
+
+	public Page<Pedido> paginacao(Integer pagina, Integer linhasPorPagina, String ordenarPor, String direcao) {		
+		UsuarioSpringSecurity usuarioLogado = UsuarioService.usuarioAutenticado();
+		if(usuarioLogado == null) {
+			throw new AutorizacaoException("Acesso negado!");
+		}		
+		PageRequest pageRequest = PageRequest.of(pagina, linhasPorPagina, Direction.valueOf(direcao), ordenarPor);
+		
+		//Pegando o ID do usuario logado.
+		Cliente cliente = clienteService.buscarPorId(usuarioLogado.getId());
+		
+		//Buscando Pedidos do próprio Cliente. 
+		return pedidoRepository.findByCliente(cliente, pageRequest);
+	}
+	
 }
