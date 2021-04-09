@@ -13,6 +13,7 @@ import org.springframework.mail.javamail.MimeMessageHelper;
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.Context;
 
+import com.edgleidson.cursomc.domain.Cliente;
 import com.edgleidson.cursomc.domain.Pedido;
 
 // Classe Abstrata.
@@ -85,4 +86,23 @@ public abstract class AbstratoEmailService implements EmailService {
 		mmh.setText(htmlDeTemplatePedido(obj),true); //Corpo do email.
 		return mimeMessage;
 	}
+	
+	//------- Envio de email com a nova senha.---------------
+	
+	@Override
+	public void envioDeNovaSenhaEmail(Cliente cliente, String novaSenha) {
+		SimpleMailMessage sm = prepareNovaSenhaEmail(cliente, novaSenha);
+		envioDeEmail(sm);
+	}
+
+	protected SimpleMailMessage prepareNovaSenhaEmail(Cliente cliente, String novaSenha) {
+		SimpleMailMessage sm = new SimpleMailMessage();
+		sm.setTo(cliente.getEmail()); //Destinatário do Email.
+		sm.setFrom(sender); //Remetente do Email.
+		sm.setSubject("Solicitação de nova senha!"); //Assunto do Email.		
+		sm.setSentDate(new Date(System.currentTimeMillis())); //Data do Email.
+		sm.setText("Nova senha: " + novaSenha); //Corpo do Email.
+		return sm;
+	}
+	
 }

@@ -51,7 +51,8 @@ public class SegurancaConfig extends WebSecurityConfigurerAdapter {
 
 	// Vetor[] para definir quais os caminhos/URL, que estaram liberados para gravação (POST).
 	private static final String[] PUBLIC_MATCHERS_POST = { 
-			"/clientes/**"
+			"/clientes/**",
+			"/autenticacao/esqueci/**"
 			};
 	
 	// Sobreescrever o método(configure()) que veio da classe(WebSecurityConfigurerAdapter). 
