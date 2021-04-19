@@ -16,7 +16,7 @@ import com.edgleidson.cursomc.domain.enums.EstadoPagamento;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 
-// @Inheritance = Herança.
+// @Inheritance = Heranca.
 // InheritanceType.JOINED = Uma tabela para cada SubClasse(PagamentoComBoleto - PagamentoComCartao).
 // @JsonTypeInfo = Para propocionar que a Classe(Pagamento) tenha mais um campo adicionado, chamado(@type).
 @Entity
@@ -29,9 +29,9 @@ public class Pagamento implements Serializable{
 	private Integer id;
 	private Integer estado; // Enumerado (EstadoPagamento).
 	
-	// Associação = Um PAGAMENTO p/ Um PEDIDO.
+	// Associacao = Um PAGAMENTO p/ Um PEDIDO.
 	// @MapsId = Para definir o mesmo ID da classe mapeada(Pedido) para classe(Pagamento).
-	// @JsonIgnore = Omitir a serialização do pedido do Pagamento. - Evitando Json ciclíco(Loop infínito).
+	// @JsonIgnore = Omitir a serializacao do pedido do Pagamento. - Evitando Json ciclico(Loop infinito).
 	@JsonIgnore
 	@OneToOne
 	@JoinColumn(name = "pedido_id")
@@ -45,7 +45,7 @@ public class Pagamento implements Serializable{
 		super();
 		this.id = id;
 		this.estado = (estado==null)? null : estado.getCodigo(); //Enumerado (EstadoPagamento).
-		//Obs:Condicional Ternária = Se o estado for igual a nulo, vai atribuir nulo, caso contrário, vai atribuir o código.
+		//Obs:Condicional Ternaria = Se o estado for igual a nulo, vai atribuir nulo, caso contrario, vai atribuir o codigo.
 		this.pedido = pedido;
 	}
 

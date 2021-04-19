@@ -2,8 +2,8 @@ package com.edgleidson.cursomc.domain.enums;
 
 public enum TipoCliente {
 
-	PESSOAFISICA(1, "Pessoa Física"), 
-	PESSOAJURIDICA(2, "Pessoa Jurídica");
+	PESSOAFISICA(1, "Pessoa F�sica"), 
+	PESSOAJURIDICA(2, "Pessoa Jur�dica");
 
 	private int codigo;
 	private String descricao;
@@ -14,7 +14,7 @@ public enum TipoCliente {
 		this.descricao = descricao;
 	}
 
-	// Tipo Enumerado só tem métodos GET.
+	// Tipo Enumerado so tem metodos GET.
 	public int getCodigo() {
 		return codigo;
 	}
@@ -23,8 +23,8 @@ public enum TipoCliente {
 		return descricao;
 	}
 
-	// Método para recebe um código e retorna um objeto TipoCliente já instanciado conforme o código que for passado.
-	// Static = Para ser possível executar mesmo sem instanciar objetos.
+	// Metodo para recebe um codigo e retorna um objeto TipoCliente ja instanciado conforme o codigo que for passado.
+	// Static = Para ser possivel executar mesmo sem instanciar objetos.
 	public static TipoCliente toEnum(Integer codigo) {
 		if (codigo == null) {
 			return null;
@@ -35,6 +35,6 @@ public enum TipoCliente {
 				return x;
 			}
 		}
-		throw new IllegalArgumentException("Código inválido: " + codigo);
+		throw new IllegalArgumentException("Codigo inv�lido: " + codigo);
 	}
 }

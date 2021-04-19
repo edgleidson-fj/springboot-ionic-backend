@@ -23,7 +23,7 @@ import com.edgleidson.cursomc.security.JWTFiltroDeAutenticacao;
 import com.edgleidson.cursomc.security.JWTFiltroDeAutorizacao;
 import com.edgleidson.cursomc.security.JWTutil;
 
-//Classe de Configuração para Autenticação.
+//Classe de Configuracao para Autenticacao.
 //Herdar = (WebSecurityConfigurerAdapter) da framework Spring Security.
 
 @Configuration
@@ -34,28 +34,28 @@ public class SegurancaConfig extends WebSecurityConfigurerAdapter {
 	@Autowired
 	private Environment ambiente; 
 	@Autowired
-	private UserDetailsService userDetailsService; //Injeção da dependência da Interface(UserDetailsService).
+	private UserDetailsService userDetailsService; //Injetando da dependencia da Interface(UserDetailsService).
 	@Autowired
 	private JWTutil jwtUtil;
 
-	// Vetor[] para definir quais os caminhos/URL, que por padrão estaram liberados.
+	// Vetor[] para definir quais os caminhos/URL, que por padrao estaram liberados.
 	private static final String[] PUBLIC_MATCHERS = {
 			"/h2-console/**" 
 			};
 
-	// Vetor[] para definir quais os caminhos/URL, que estaram liberados apenas para leitura/visualização (GET).
+	// Vetor[] para definir quais os caminhos/URL, que estaram liberados apenas para leitura/visualizacao (GET).
 	private static final String[] PUBLIC_MATCHERS_GET = { 
 			"/produtos/**", 
 			"/categorias/**"
 			};
 
-	// Vetor[] para definir quais os caminhos/URL, que estaram liberados para gravação (POST).
+	// Vetor[] para definir quais os caminhos/URL, que estaram liberados para gravacao (POST).
 	private static final String[] PUBLIC_MATCHERS_POST = { 
 			"/clientes/**",
 			"/autenticacao/esqueci/**"
 			};
 	
-	// Sobreescrever o método(configure()) que veio da classe(WebSecurityConfigurerAdapter). 
+	// Sobreescrever o metodo(configure()) que veio da classe(WebSecurityConfigurerAdapter). 
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		// Para liberar acesso via Banco de dados H2.
@@ -63,32 +63,32 @@ public class SegurancaConfig extends WebSecurityConfigurerAdapter {
 			http.headers().frameOptions().disable();
 		}
 
-		//Para ativar o @Bean(CorsConfigurationSource) & Desabilitar a proteção CSRF.
+		//Para ativar o @Bean(CorsConfigurationSource) & Desabilitar a protecao CSRF.
 		http.cors().and().csrf().disable();
 
 		http.authorizeRequests()
-		.antMatchers(HttpMethod.POST,PUBLIC_MATCHERS_POST).permitAll()//Permitir o método(POST) para os caminhos que estiverem no vetor.
-		.antMatchers(HttpMethod.GET,PUBLIC_MATCHERS_GET).permitAll()//Só vai permitir o método(GET) para os caminhos que estiverem no vetor.
-		.antMatchers(PUBLIC_MATCHERS).permitAll() //Todos os caminho que tiver nesse Vetor, será permitido.
-		.anyRequest().authenticated(); //Para o restante exigir uma autenticação.
+		.antMatchers(HttpMethod.POST,PUBLIC_MATCHERS_POST).permitAll()//Permitir o metodo(POST) para os caminhos que estiverem no vetor.
+		.antMatchers(HttpMethod.GET,PUBLIC_MATCHERS_GET).permitAll()//So vai permitir o metodo(GET) para os caminhos que estiverem no vetor.
+		.antMatchers(PUBLIC_MATCHERS).permitAll() //Todos os caminho que tiver nesse Vetor, sera permitido.
+		.anyRequest().authenticated(); //Para o restante exigir uma autenticacao.
 
-		// Filtro de autenticação.
+		// Filtro de autenticacao.
 		http.addFilter(new JWTFiltroDeAutenticacao(authenticationManager(), jwtUtil));
 		
-		// Filtro de autorização.
+		// Filtro de autorizacao.
 		http.addFilter(new JWTFiltroDeAutorizacao(authenticationManager(), jwtUtil, userDetailsService));
 		
-		// Para assegurar que o Backend não vai criar seção de Usuário.
+		// Para assegurar que o Backend nao vai criar secao de Usuario.
 		http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 	}
 	
-	//Sobreescrever o método(Configure()), para informar quem é UserDetailsService e o algoritmo de codificação da senha.
+	//Sobreescrever o metodo(Configure()), para informar quem eh UserDetailsService e o algoritmo de codificacao da senha.
 	 public void configure(AuthenticationManagerBuilder autenticacao) throws Exception{
 		 autenticacao.userDetailsService(userDetailsService).passwordEncoder(bCryptPasswordEncoder());
 	 } 	
 	
 	 
-	// Método @Bean para dar acesso básico de multiplas fontes para todos os caminhos.
+	// Metodo @Bean para dar acesso basico de multiplas fontes para todos os caminhos.
 	@Bean
 	CorsConfigurationSource corsConfigurationSource() {
 		final UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
@@ -97,7 +97,7 @@ public class SegurancaConfig extends WebSecurityConfigurerAdapter {
 	}
 	
 	
-	// Método @Bean para criptograr senha.
+	// Metodo @Bean para criptograr senha.
 	@Bean
 	public BCryptPasswordEncoder bCryptPasswordEncoder() {
 		return new BCryptPasswordEncoder();

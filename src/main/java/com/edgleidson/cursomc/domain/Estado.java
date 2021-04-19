@@ -21,8 +21,8 @@ public class Estado implements Serializable {
 	private Integer id;
 	private String nome;
 
-	// Associação = Um ESTADO p/ Muitas CIDADES.
-	// @JsonIgnore = Omitir a serialização das cidades do Estado. - Evitando Json ciclíco(Loop infínito).
+	// Associacao = Um ESTADO p/ Muitas CIDADES.
+	// @JsonIgnore = Omitir a serializacao das cidades do Estado. - Evitando Json ciclico(Loop infinito).
 	// (mappedBy = "estado-[Cidade]").
 	@JsonIgnore
 	@OneToMany(mappedBy = "estado")

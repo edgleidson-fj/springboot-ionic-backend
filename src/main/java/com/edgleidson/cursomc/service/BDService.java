@@ -59,22 +59,22 @@ public class BDService {
 	private BCryptPasswordEncoder criptografia;
 		
 	public void instaciarBancoDeDadosTeste() throws ParseException {		
-		Categoria cat1 = new Categoria(null, "Informática");
-		Categoria cat2 = new Categoria(null, "Escritório");
+		Categoria cat1 = new Categoria(null, "Inform�tica");
+		Categoria cat2 = new Categoria(null, "Escrit�rio");
 		Categoria cat3 = new Categoria(null, "Cama, mesa e banho");
-		Categoria cat4 = new Categoria(null, "Eletrônicos");
+		Categoria cat4 = new Categoria(null, "Eletr�nicos");
 		Categoria cat5 = new Categoria(null, "Jardinagem");
-		Categoria cat6 = new Categoria(null, "Decoração");
+		Categoria cat6 = new Categoria(null, "Decora��o");
 		Categoria cat7 = new Categoria(null, "Perfumaria");
 		
 		Produto p1 = new Produto(null, "Computador", 2000.0);
 		Produto p2 = new Produto(null, "Impressora", 800.0);
 		Produto p3 = new Produto(null, "Mouse", 80.0);
-		Produto p4 = new Produto(null, "Mesa de Escritório", 300.0);
+		Produto p4 = new Produto(null, "Mesa de Escrit�rio", 300.0);
 		Produto p5 = new Produto(null, "Toalha", 50.0);
 		Produto p6 = new Produto(null, "Colcha", 200.0);
 		Produto p7 = new Produto(null, "TV True Collor", 1200.0);
-		Produto p8 = new Produto(null, "Roçadeira", 800.0);
+		Produto p8 = new Produto(null, "Ro�adeira", 800.0);
 		Produto p9 = new Produto(null, "Abajour", 100.0);
 		Produto p10 = new Produto(null, "Pendente", 180.0);
 		Produto p11 = new Produto(null, "Shampoo", 90.0);
@@ -107,8 +107,8 @@ public class BDService {
 		Estado est1 = new Estado(null, "Minas Gerais");
 		Estado est2 = new Estado(null, "São Paulo");
 		
-		Cidade c1 = new Cidade(null, "Uberlândia", est1);
-		Cidade c2 = new Cidade(null, "São Paulo", est2);
+		Cidade c1 = new Cidade(null, "Uberl�ndia", est1);
+		Cidade c2 = new Cidade(null, "S�o Paulo", est2);
 		Cidade c3 = new Cidade(null, "Campinas", est2);
 		
 		//Estado - lista de cidades.

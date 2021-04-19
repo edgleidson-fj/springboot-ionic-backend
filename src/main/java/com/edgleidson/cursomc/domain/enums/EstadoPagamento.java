@@ -15,7 +15,7 @@ public enum EstadoPagamento {
 		this.descricao = descricao;
 	}
 
-	// Tipo Enumerado só tem métodos GET.
+	// Tipo Enumerado so tem metodos GET.
 	public int getCodigo() {
 		return codigo;
 	}
@@ -24,8 +24,8 @@ public enum EstadoPagamento {
 		return descricao;
 	}
 
-	// Método para recebe um código e retorna um objeto EstadoPagamento já instanciado conforme o código que for passado.
-	// Static = Para ser possível executar mesmo sem instanciar objetos.
+	// Metodo para recebe um codigo e retorna um objeto EstadoPagamento ja instanciado conforme o codigo que for passado.
+	// Static = Para ser possivel executar mesmo sem instanciar objetos.
 	public static EstadoPagamento toEnum(Integer codigo) {
 		if (codigo == null) {
 			return null;
@@ -36,6 +36,6 @@ public enum EstadoPagamento {
 				return x;
 			}
 		}
-		throw new IllegalArgumentException("Código inválido: " + codigo);
+		throw new IllegalArgumentException("Codigo inválido: " + codigo);
 	}
 }

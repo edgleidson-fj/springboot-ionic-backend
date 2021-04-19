@@ -18,7 +18,7 @@ public class Cidade implements Serializable {
 	private Integer id;
 	private String nome;
 	
-	// Associação = Muitas CIDADE p/ Um ESTADO.
+	// Associacao = Muitas CIDADE p/ Um ESTADO.
 	@ManyToOne
 	@JoinColumn(name = "estado_id")
 	private Estado estado;

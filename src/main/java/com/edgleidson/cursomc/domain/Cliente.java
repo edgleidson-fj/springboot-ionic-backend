@@ -36,15 +36,15 @@ public class Cliente implements Serializable{
 	@JsonIgnore
 	private String senha;
 	
-	// Associação = Um CLIENTE p/ Muitos ENDEREÇO.
-	// (mappedBy = "cliente-[Endereço]").
-	// (cascade = "Possibilita que toda operação que modifica o Cliente seja refletida em cascata nos Endereços")
-	// -exemplo do Cascade - Se excluir o Cliente também excluirá o Endereço dele.
+	// Associacao = Um CLIENTE p/ Muitos ENDERECO.
+	// (mappedBy = "cliente-[Endereco]").
+	// (cascade = "Possibilita que toda operacao que modifica o Cliente seja refletida em cascata nos Enderecos")
+	// -exemplo do Cascade - Se excluir o Cliente também excluirá o Endereco dele.
 	@OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL)
 	private List<Endereco> enderecos = new ArrayList<>();
 	
 	// Entidade fraca.
-	// @ElementCollection = É uma coleção de tipo (String) dependente da Entidade(Pai).
+	// @ElementCollection = Eh uma colecao de tipo (String) dependente da Entidade(Pai).
 	// @CollectionTable = Criar uma tabela dependente da Entidade(Pai).
 	// SET<tipo> = Para evitar valores repetidos.
 	@ElementCollection
@@ -57,16 +57,16 @@ public class Cliente implements Serializable{
 	@CollectionTable(name="PERFIS")
 	private Set<Integer> perfis = new HashSet<>();
 	
-	// Associação = Um CLIENTE p/ Muitos PEDIDO.
+	// Associacao = Um CLIENTE p/ Muitos PEDIDO.
 	// (mappedBy = "cliente-[Pedido]").
-	// @JsonIgnore = Omitir a serialização do pedido do Pagamento. - Evitando Json ciclíco(Loop infínito).
+	// @JsonIgnore = Omitir a serializacao do pedido do Pagamento. - Evitando Json ciclico(Loop infinito).
 	@JsonIgnore
 	@OneToMany(mappedBy = "cliente")
 	private List<Pedido> pedidos = new ArrayList<>();
 	
 	
 	public Cliente() {
-		addPerfil(Perfil.CLIENTE);//Todo Cliente terá por padrão o Perfil(CLIENTE).
+		addPerfil(Perfil.CLIENTE);//Todo Cliente tera por padrao o Perfil(CLIENTE).
 	}
 
 	public Cliente(Integer id, String nome, String email, String cpfOuCnpj, TipoCliente tipo, String senha) {
@@ -76,7 +76,7 @@ public class Cliente implements Serializable{
 		this.email = email;
 		this.cpfOuCnpj = cpfOuCnpj;
 		this.tipo = (tipo==null)? null : tipo.getCodigo(); //Enumerado (TipoCliente).
-		//Obs:Condicional Ternária = Se o tipo for igual a nulo, vai atribuir nulo, caso contrário, vai atribuir o código.
+		//Obs:Condicional Ternaria = Se o tipo for igual a nulo, vai atribuir nulo, caso contrário, vai atribuir o codigo.
 		this.senha = senha;
 		addPerfil(Perfil.CLIENTE);
 	}
@@ -115,7 +115,7 @@ public class Cliente implements Serializable{
 
 	//Enumerado (TipoCliente).
 	public TipoCliente getTipo() {
-		return TipoCliente.toEnum(tipo); //Método dentro do Enum.
+		return TipoCliente.toEnum(tipo); //Metodo dentro do Enum.
 	}
 
 	public void setTipo(TipoCliente tipo) {

@@ -27,8 +27,8 @@ public class Produto implements Serializable{
 	private String nome;
 	private Double preco;
 	
-	// Associação = Muitos PRODUTOS p/  Muitas CATEGORIAS.
-	// @JsonIgnore = Omitir a serialização da lista de categorias do Produto. - Evitando Json ciclíco(Loop infínito).
+	// Associacao = Muitos PRODUTOS p/  Muitas CATEGORIAS.
+	// @JsonIgnore = Omitir a serializacao da lista de categorias do Produto. - Evitando Json ciclico(Loop infinito).
 	@JsonIgnore
 	@ManyToMany
 	@JoinTable(name = "PRODUTO_CATEGORIA",
@@ -37,12 +37,12 @@ public class Produto implements Serializable{
 	)
 	List<Categoria> categorias = new ArrayList<>();
 	
-	// Associação = Um PEDIDO p/ Muitos ITENS.
+	// Associacao = Um PEDIDO p/ Muitos ITENS.
 	// Chave composta (Produto/Pedido).
 	// Conjunto de Itens.
 	// Set<> = Para evitar valores repetidos.
 	// (mappedBy = "id-[ItemPedido] _ produto-[ItemPedidoPK]")
-	// @JsonIgnore = Nesse caso está ignorando a serialização dos (ItemPedido) através do Produto.
+	// @JsonIgnore = Nesse caso esta ignorando a serializacao dos (ItemPedido) atraves do Produto.
 	@JsonIgnore
 	@OneToMany(mappedBy = "id.produto")
 	private Set<ItemPedido> itens = new HashSet<>();
@@ -50,7 +50,7 @@ public class Produto implements Serializable{
 	public Produto() {
 	}
 
-	//Obs: Não coloca coleções(List) no parametro do Construtor.
+	//Obs: Nao coloca colecoes(List) no parametro do Construtor.
 	public Produto(Integer id, String nome, Double preco) {
 		super();
 		this.id = id;
@@ -59,7 +59,7 @@ public class Produto implements Serializable{
 	}
 	
 	// Lista de Pedidos. Obs: Produtos conhecem seus Pedidos.
-	// @JsonIgnore = Nesse caso está ignorando a serialização para evitar Json ciclíco(Loop infínito).
+	// @JsonIgnore = Nesse caso esta ignorando a serializacao para evitar Json ciclico(Loop infinito).
 	@JsonIgnore
 	public List<Pedido> getPedidos(){
 		List<Pedido> lista = new ArrayList<>();

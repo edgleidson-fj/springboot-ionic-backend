@@ -31,22 +31,22 @@ public class Pedido implements Serializable{
 	@JsonFormat(pattern = "dd/MM/yyyy HH:mm")
 	private Date instante;
 	
-	// Associação = Um PEDIDO p/ Um PAGAMENTO.
+	// Associacao = Um PEDIDO p/ Um PAGAMENTO.
 	// (mappedBy = "pedido-[Pagamento]").
 	@OneToOne(cascade = CascadeType.ALL, mappedBy = "pedido")
 	private Pagamento pagamento;
 	
-	// Associação = Muitos PEDIDO p/ Um CLIENTE.
+	// Associacao = Muitos PEDIDO p/ Um CLIENTE.
 	@ManyToOne
 	@JoinColumn(name = "cliente_id")
 	private Cliente cliente;
 	
-	// Associação = Muitos PEDIDO p/ Um ENDEREÇO.
+	// Associacao = Muitos PEDIDO p/ Um ENDERECO.
 	@ManyToOne
 	@JoinColumn(name = "endereco_de_entrega_id")
 	private Endereco enderecoDeEntrega;
 	
-	// Associação = Um PEDIDO p/ Muitos ITENS.
+	// Associacao = Um PEDIDO p/ Muitos ITENS.
 	// Chave composta (Produto/Pedido).
 	// Conjunto de Itens. Obs: Pedido conhece os Itens.
 	// Set<> = Para evitar valores repetidos.

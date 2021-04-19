@@ -2,7 +2,7 @@ package com.edgleidson.cursomc.domain.enums;
 
 public enum Perfil {
 
-	// O prefixo "ROLE_" é exigência da framework Spring Security.
+	// O prefixo "ROLE_" sao exigencia da framework Spring Security.
 	ADMIN(1,"ROLE_ADMIN"), 
 	CLIENTE(2,"ROLE_CLIENTE");
 	
@@ -15,7 +15,7 @@ public enum Perfil {
 		this.descricao = descricao;
 	}
 
-	// Tipo Enumerado só tem métodos GET.
+	// Tipo Enumerado so tem metodos GET.
 	public int getCodigo() {
 		return codigo;
 	}
@@ -24,7 +24,7 @@ public enum Perfil {
 		return descricao;
 	}
 
-	// Método para recebe um código e retorna um objeto EstadoPagamento já instanciado conforme o código que for passado.
+	// Metodo para recebe um codigo e retorna um objeto EstadoPagamento ja instanciado conforme o codigo que for passado.
 	// Static = Para ser possível executar mesmo sem instanciar objetos.
 	public static Perfil toEnum(Integer codigo) {
 		if (codigo == null) {
@@ -36,6 +36,6 @@ public enum Perfil {
 				return x;
 			}
 		}
-		throw new IllegalArgumentException("Código inválido: " + codigo);
+		throw new IllegalArgumentException("C�digo inv�lido: " + codigo);
 	}
 }

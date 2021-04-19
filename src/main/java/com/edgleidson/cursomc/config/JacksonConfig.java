@@ -8,8 +8,8 @@ import com.edgleidson.cursomc.domain.PagamentoComBoleto;
 import com.edgleidson.cursomc.domain.PagamentoComCartao;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-// Classe de Configuração para o JACKSON.
-// -Na ocasião está mapeando os objetos(PagamentoComCartao e PagamentoComBoleto).
+// Classe de Configuracao para o JACKSON.
+// -Na ocasiao esta mapeando os objetos(PagamentoComCartao e PagamentoComBoleto).
 
 @Configuration
 public class JacksonConfig {

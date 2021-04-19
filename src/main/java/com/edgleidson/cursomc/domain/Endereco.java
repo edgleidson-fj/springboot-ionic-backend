@@ -24,14 +24,14 @@ public class Endereco implements Serializable{
 	private String bairro;
 	private String cep;
 	
-	// Associação = Muitos ENDEREÇO p/ Um CLIENTE.
-	// @JsonIgnore = Omitir a serialização de clientes do Endereço. - Evitando Json ciclíco(Loop infínito).
+	// Associacao = Muitos ENDERECO p/ Um CLIENTE.
+	// @JsonIgnore = Omitir a serializacao de clientes do Endereco. - Evitando Json ciclico(Loop infinito).
 	@JsonIgnore
 	@ManyToOne
 	@JoinColumn(name = "cliente_id")
 	private Cliente cliente;
 	
-	// Associação = Muitos ENDEREÇO p/ Uma CIDADE.
+	// Associacao = Muitos ENDERECO p/ Uma CIDADE.
 	@ManyToOne
 	@JoinColumn(name = "cidade_id")
 	private Cidade cidade;

@@ -16,7 +16,7 @@ import com.edgleidson.cursomc.dto.ClienteDTO;
 import com.edgleidson.cursomc.repository.ClienteRepository;
 import com.edgleidson.cursomc.resources.exceptions.MensagemDoCampo;
 
-//Classe criada para custumizar a validaÃ§Ã£o de Email, na atualizaÃ§Ã£o do Cliente.
+//Classe criada para custumizar a validação de Email, na atualização do Cliente.
 public class ClienteUpdateValidacao implements ConstraintValidator<ClienteUpdate, ClienteDTO> {
 
 	@Autowired
@@ -31,7 +31,7 @@ public class ClienteUpdateValidacao implements ConstraintValidator<ClienteUpdate
 	@Override
 	public boolean isValid(ClienteDTO objDto, ConstraintValidatorContext context) {
 		
-		//MÃ©todo para pegar o ID do Cliente que estÃ¡ sendo atualizado, via URI.
+		//Método para pegar o ID do Cliente que estão¡ sendo atualizado, via URI.
 		//Map<Chave, Valor>
 		Map<String, String> map = (Map<String, String>) request.getAttribute(HandlerMapping.URI_TEMPLATE_VARIABLES_ATTRIBUTE);
 		Integer uriID = Integer.parseInt(map.get("id"));
