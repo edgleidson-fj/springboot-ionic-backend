@@ -1,5 +1,6 @@
 package com.edgleidson.cursomc.service;
 
+import java.net.URI;
 import java.util.List;
 import java.util.Optional;
 
@@ -11,6 +12,7 @@ import org.springframework.data.domain.Sort.Direction;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.edgleidson.cursomc.domain.Cidade;
 import com.edgleidson.cursomc.domain.Cliente;
@@ -35,6 +37,8 @@ public class ClienteService {
 	private EnderecoRepository enderecoRepository;
 	@Autowired
 	private BCryptPasswordEncoder criptografia;
+	@Autowired
+	private S3Service s3Service;
 	
 
 	public Cliente buscarPorId(Integer id) {		
@@ -114,10 +118,14 @@ public class ClienteService {
 	}
 	
 	
-	//Método auxiliar para atualização.
+	//Metodo auxiliar para atualização.
 	private void atualizarDados(Cliente novoObj, Cliente obj) {
 		novoObj.setNome(obj.getNome());
 		novoObj.setEmail(obj.getEmail());
 	}
 	
+	//Metodo para subir os arquivos para o S3 - Amazon AWS.
+	public URI uploadFotoDoPerfil(MultipartFile multipartFile) {
+		return s3Service.uploadFile(multipartFile);
+	}	
 }
