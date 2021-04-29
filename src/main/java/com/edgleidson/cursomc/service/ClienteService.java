@@ -42,6 +42,7 @@ public class ClienteService {
 	
 
 	public Cliente buscarPorId(Integer id) {		
+		
 		UsuarioSpringSecurity usuarioLogado = UsuarioService.usuarioAutenticado();
 		
 		//usuarioLogado igual nulo OU usuarioLogado diferente de (ADMIN) & usuarioLogado diferente do ID do Usuario.
@@ -124,8 +125,21 @@ public class ClienteService {
 		novoObj.setEmail(obj.getEmail());
 	}
 	
+	
 	//Metodo para subir os arquivos para o S3 - Amazon AWS.
 	public URI uploadFotoDoPerfil(MultipartFile multipartFile) {
-		return s3Service.uploadFile(multipartFile);
+		
+		UsuarioSpringSecurity usuarioLogado = UsuarioService.usuarioAutenticado();
+		if(usuarioLogado == null) {
+			throw new AutorizacaoException("Acesso negado!");
+		}	
+		
+		//Pegando a URI da imagem e inserindo no Cliente/Usuario logado.
+		URI uri = s3Service.uploadFile(multipartFile);		
+		Cliente cliente = buscarPorId(usuarioLogado.getId());
+		cliente.setImagemURL(uri.toString());
+		clienteRepository.save(cliente);
+		
+		return uri;
 	}	
 }
