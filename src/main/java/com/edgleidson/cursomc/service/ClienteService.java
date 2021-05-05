@@ -1,10 +1,12 @@
 package com.edgleidson.cursomc.service;
 
+import java.awt.image.BufferedImage;
 import java.net.URI;
 import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -39,6 +41,12 @@ public class ClienteService {
 	private BCryptPasswordEncoder criptografia;
 	@Autowired
 	private S3Service s3Service;
+	@Autowired
+	private ImagemService imagemService;
+	
+	// @Value - Pegando valor da chave dentro do arquivo(application.properties).
+	@Value("${img.prefix.client.profile}")
+	private String prefixo;
 	
 
 	public Cliente buscarPorId(Integer id) {		
@@ -87,7 +95,7 @@ public class ClienteService {
 	}
 	
 	
-	//Paginação.
+	//Paginacao.
 	public Page<Cliente> paginacao(Integer pagina, Integer linhasPorPagina, String ordenarPor, String direcao){
 		PageRequest pageRequest = PageRequest.of(pagina, linhasPorPagina, Direction.valueOf(direcao), ordenarPor);
 		return clienteRepository.findAll(pageRequest);
@@ -97,7 +105,7 @@ public class ClienteService {
 	//Método auxiliar para instanciar um Cliente a partir de um DTO.
 	public Cliente ApartirDeUmDTO(ClienteDTO objDTO) {
 		return new Cliente(objDTO.getId(), objDTO.getNome(), objDTO.getEmail(), null, null, null);
-		//Obs: CPF e Tipo nulo, porque o DTO não tem esses dados.
+		//Obs: CPF e Tipo nulo, porque o DTO nao tem esses dados.
 	}
 	
 	
@@ -119,7 +127,7 @@ public class ClienteService {
 	}
 	
 	
-	//Metodo auxiliar para atualização.
+	//Metodo auxiliar para atualizacao.
 	private void atualizarDados(Cliente novoObj, Cliente obj) {
 		novoObj.setNome(obj.getNome());
 		novoObj.setEmail(obj.getEmail());
@@ -134,12 +142,10 @@ public class ClienteService {
 			throw new AutorizacaoException("Acesso negado!");
 		}	
 		
-		//Pegando a URI da imagem e inserindo no Cliente/Usuario logado.
-		URI uri = s3Service.uploadFile(multipartFile);		
-		Cliente cliente = buscarPorId(usuarioLogado.getId());
-		cliente.setImagemURL(uri.toString());
-		clienteRepository.save(cliente);
+		BufferedImage imagemJPG = imagemService.pegarImagemJPGdoArquivo(multipartFile);
+		String nomeDoArquivo = prefixo + usuarioLogado.getId() + ".jpg";
 		
-		return uri;
+		                             //(InputStream - Nome do arquivo - Tipo do arquivo).
+		return s3Service.uploadArquivo(imagemService.getInputStream(imagemJPG, "jpg"), nomeDoArquivo, "image");
 	}	
 }

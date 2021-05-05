@@ -29,7 +29,7 @@ public class DesenvConfig {
 	
 	@Bean
 	public boolean instanciarBancoDeDados() throws ParseException {
-		if(!"create".equals(estrategia)) {//Se a Estrategia não for igual a palavra "create".
+		if(!"create".equals(estrategia)) {//Se a Estrategia nao for igual a palavra "create".
 			return false;
 		}		
 		bdService.instaciarBancoDeDadosTeste();

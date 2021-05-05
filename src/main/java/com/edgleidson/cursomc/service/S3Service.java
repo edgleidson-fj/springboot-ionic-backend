@@ -32,7 +32,7 @@ public class S3Service {
 	// MultipartFile = Eh o tipo que o endpoint vai receber. 
 	// ""   ""    "" = Eh o tipo do Spring correspondente ao arquivo que envia na requisição.
 	// URI = Para retornar o endereco web do novo recurso que foi gerado.
-	public URI uploadFile(MultipartFile multipartFile) {
+	public URI uploadArquivo(MultipartFile multipartFile) {
 		try {
 			String nomeDoArquivo = multipartFile.getOriginalFilename();
 			
@@ -41,7 +41,7 @@ public class S3Service {
 			InputStream inputStream = multipartFile.getInputStream();
 			String tipoDoArquivo = multipartFile.getContentType();
 		
-			return uploadFile(nomeDoArquivo, inputStream, tipoDoArquivo);
+			return uploadArquivo(inputStream, nomeDoArquivo, tipoDoArquivo);
 		}
 		catch(IOException ex) {
 			throw new ArquivoException("Erro de IO: " + ex.getMessage());
@@ -49,7 +49,7 @@ public class S3Service {
 	}
 
 	//Sobrecarga do metodo acima.
-	public URI uploadFile(String nomeDoArquivo, InputStream inputStream, String tipoDoArquivo) {
+	public URI uploadArquivo(InputStream inputStream, String nomeDoArquivo, String tipoDoArquivo) {
 		try {
 			//ObjectMetadata - Da biblioteca da Amazon.
 			ObjectMetadata metadata = new ObjectMetadata();
