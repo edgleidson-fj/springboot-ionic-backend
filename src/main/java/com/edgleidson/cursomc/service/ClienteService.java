@@ -48,9 +48,11 @@ public class ClienteService {
 	@Value("${img.prefix.client.profile}")
 	private String prefixo;
 	
+	@Value("${img.profile.size}")
+	private Integer tamanhoImagem;
+	
 
 	public Cliente buscarPorId(Integer id) {		
-		
 		UsuarioSpringSecurity usuarioLogado = UsuarioService.usuarioAutenticado();
 		
 		//usuarioLogado igual nulo OU usuarioLogado diferente de (ADMIN) & usuarioLogado diferente do ID do Usuario.
@@ -143,9 +145,11 @@ public class ClienteService {
 		}	
 		
 		BufferedImage imagemJPG = imagemService.pegarImagemJPGdoArquivo(multipartFile);
-		String nomeDoArquivo = prefixo + usuarioLogado.getId() + ".jpg";
+		imagemJPG = imagemService.recortarQuadrado(imagemJPG); //Recortar imagem.
+		imagemJPG = imagemService.redimensionar(imagemJPG, tamanhoImagem);//Redimensionar imagem.		
+		String nomeDoArquivo = prefixo + usuarioLogado.getId() + ".jpg"; //Renomear imagem.
 		
-		                             //(InputStream - Nome do arquivo - Tipo do arquivo).
+		//(InputStream - Nome do arquivo - Tipo do arquivo).
 		return s3Service.uploadArquivo(imagemService.getInputStream(imagemJPG, "jpg"), nomeDoArquivo, "image");
 	}	
 }
