@@ -4,7 +4,7 @@ import org.springframework.boot.CommandLineRunner;
 
 // CursoMC - Curso de Modelagem Conceitual.
 
-// Aula: 90 Ajustando o tamanho da imagem.
+// Aula: 93 Expondo Header Authorization (problema de Cors).
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

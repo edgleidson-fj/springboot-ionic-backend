@@ -67,6 +67,8 @@ public class JWTFiltroDeAutenticacao extends UsernamePasswordAuthenticationFilte
 		String token = jwtUtil.gerarToken(username);//Passado o usuário para o Token.
 		// response.addHeader("Authorization", "Bearer " + token);
 		response.addHeader("Autorizacao", "Usuario-Token " + token);//Adicionando o Token ao cabeçalho da resposta.
+		//response.addHeader("access-control-expose-headers", "Authorization");
+		response.addHeader("access-control-expose-headers", "Autorizacao"); //Expondo cabecalho (Autorizacao). 
 	}
 	// ------------------------------------------------------------------------------------------------------------
 
