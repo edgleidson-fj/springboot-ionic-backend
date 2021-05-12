@@ -97,6 +97,21 @@ public class ClienteService {
 	}
 	
 	
+	public Cliente buscarPorEmail(String email){
+		UsuarioSpringSecurity usuarioLogado = UsuarioService.usuarioAutenticado();
+		if(usuarioLogado == null || !usuarioLogado.temFuncao(Perfil.ADMIN) && !email.equals(usuarioLogado.getUsername())) {
+			throw new AutorizacaoException("Acesso negado!");
+		}
+		
+		Cliente obj = clienteRepository.findByEmail(email);
+		if(obj == null) {
+			throw new ObjetoNaoEncontradoException("Objeto não encontrado! ID: "	+ usuarioLogado.getId() 
+			+ ", Tipo: " + Cliente.class.getName());
+		}		
+		return obj;
+	}
+	
+	
 	//Paginacao.
 	public Page<Cliente> paginacao(Integer pagina, Integer linhasPorPagina, String ordenarPor, String direcao){
 		PageRequest pageRequest = PageRequest.of(pagina, linhasPorPagina, Direction.valueOf(direcao), ordenarPor);
