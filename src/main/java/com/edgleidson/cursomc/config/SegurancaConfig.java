@@ -46,7 +46,8 @@ public class SegurancaConfig extends WebSecurityConfigurerAdapter {
 	// Vetor[] para definir quais os caminhos/URL, que estaram liberados apenas para leitura/visualizacao (GET).
 	private static final String[] PUBLIC_MATCHERS_GET = { 
 			"/produtos/**", 
-			"/categorias/**"
+			"/categorias/**",
+			"/estados/**"
 			};
 
 	// Vetor[] para definir quais os caminhos/URL, que estaram liberados para gravacao (POST).
