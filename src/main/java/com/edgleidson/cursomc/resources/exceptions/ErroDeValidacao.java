@@ -6,17 +6,18 @@ import java.util.List;
 public class ErroDeValidacao extends ErroPadrao {
 	private static final long serialVersionUID = 1L;
 
-	private List<MensagemDoCampo> erros = new ArrayList<>();
+	private List<MensagemDoCampo> erros = new ArrayList<>();	
 
-	public ErroDeValidacao(Integer status, String msg, Long timestamp) {
-		super(status, msg, timestamp);
+	//Obs: Nao deve ter lista no Construtor.
+	public ErroDeValidacao(Long timestamp, Integer status, String erro, String msg, String path) {
+		super(timestamp, status, erro, msg, path);
 	}
 
 	public List<MensagemDoCampo> getErros() {
 		return erros;
 	}
 
-	//Usar esse método ao invés do Set, devido a ser uma lista.
+	//Usar esse metodo ao inves do Set, devido a ser uma lista.
 	public void addErro(String nomeDoCampo, String mensagem) {
 		erros.add(new MensagemDoCampo(nomeDoCampo, mensagem));
 	}

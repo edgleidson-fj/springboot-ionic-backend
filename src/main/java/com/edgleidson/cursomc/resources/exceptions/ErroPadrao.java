@@ -5,14 +5,26 @@ import java.io.Serializable;
 public class ErroPadrao implements Serializable{
 	private static final long serialVersionUID = 1L;
 
-	private Integer status;
-	private String msg;
 	private Long timestamp;
+	private Integer status;
+	private String erro;
+	private String msg;
+	private String path;
 	
-	public ErroPadrao(Integer status, String msg, Long timestamp) {
+	public ErroPadrao(Long timestamp, Integer status, String erro, String msg, String path) {
 		super();
+		this.timestamp = timestamp;
 		this.status = status;
+		this.erro = erro;
 		this.msg = msg;
+		this.path = path;
+	}
+
+	public Long getTimestamp() {
+		return timestamp;
+	}
+
+	public void setTimestamp(Long timestamp) {
 		this.timestamp = timestamp;
 	}
 
@@ -24,6 +36,14 @@ public class ErroPadrao implements Serializable{
 		this.status = status;
 	}
 
+	public String getErro() {
+		return erro;
+	}
+
+	public void setErro(String erro) {
+		this.erro = erro;
+	}
+
 	public String getMsg() {
 		return msg;
 	}
@@ -32,11 +52,11 @@ public class ErroPadrao implements Serializable{
 		this.msg = msg;
 	}
 
-	public Long getTimestamp() {
-		return timestamp;
+	public String getPath() {
+		return path;
 	}
 
-	public void setTimestamp(Long timestamp) {
-		this.timestamp = timestamp;
-	}	
+	public void setPath(String path) {
+		this.path = path;
+	}		
 }
