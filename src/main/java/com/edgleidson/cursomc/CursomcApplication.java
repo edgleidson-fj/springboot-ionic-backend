@@ -4,7 +4,7 @@ import org.springframework.boot.CommandLineRunner;
 
 // CursoMC - Curso de Modelagem Conceitual.
 
-// Aula: 99 Acrescentando mais Produtos para testar INFINITY SCROLL.
+// Aula: 100 Liberando CORS para PUT e DELETE.
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
