@@ -4,7 +4,7 @@ import org.springframework.boot.CommandLineRunner;
 
 // CursoMC - Curso de Modelagem Conceitual.
 
-// Aula: 100 Liberando CORS para PUT e DELETE.
+// Aula: 101 Expondo o Header Location nas respostas.
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
